@@ -40,7 +40,15 @@ namespace EverythingToolbar.Settings
             InitializeComponent();
         }
 
-        // ── Page lifecycle ─────────────────────────────────────────────────
+        private void OnAutoFocusChecked(object sender, RoutedEventArgs e)
+        {
+            ToolbarSettings.User.FocusSearchOnTyping = true;
+        }
+
+        private void OnAutoFocusUnchecked(object sender, RoutedEventArgs e)
+        {
+            ToolbarSettings.User.FocusSearchOnTyping = false;
+        }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -66,7 +74,7 @@ namespace EverythingToolbar.Settings
             LoadLocalShortcut("NavigateDown", ToolbarSettings.User.LocalShortcutNavigateDown);
             LoadLocalShortcut("CycleNext", ToolbarSettings.User.LocalShortcutCycleNext);
             LoadLocalShortcut("CyclePrev", ToolbarSettings.User.LocalShortcutCyclePrev);
-
+            LoadLocalShortcut("FocusSearch", ToolbarSettings.User.LocalShortcutFocusSearch);
             // Filter range
             _originalFilterRange = ToolbarSettings.User.LocalShortcutFilterRange;
             LoadFilterRange(_originalFilterRange);
@@ -132,6 +140,7 @@ namespace EverythingToolbar.Settings
                 case "NavigateDown": ToolbarSettings.User.LocalShortcutNavigateDown = binding; break;
                 case "CycleNext": ToolbarSettings.User.LocalShortcutCycleNext = binding; break;
                 case "CyclePrev": ToolbarSettings.User.LocalShortcutCyclePrev = binding; break;
+                case "FocusSearch": ToolbarSettings.User.LocalShortcutFocusSearch = binding; break;
             }
         }
 

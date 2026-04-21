@@ -64,10 +64,34 @@ namespace EverythingToolbar
                 return;
             }
 
+            // ✨ NEW FOCUS SEARCH BOX SHORTCUT ✨
+            var focusShortcut = ToolbarSettings.User.LocalShortcutFocusSearch;
+            if (e.Key == focusShortcut.Key && Keyboard.Modifiers == focusShortcut.Modifiers)
+            {
+                SearchBox.Focus();
+
+                // Optional: Select all text when focused so you can immediately type to overwrite
+                // SearchBox.SelectAll(); 
+
+                e.Handled = true;
+                return;
+            }
+
             if (e.Key == Key.Escape)
             {
-                Keyboard.ClearFocus();
-                NativeMethods.FocusTaskbarWindow();
+                if (SearchBox.IsKeyboardFocusWithin)
+                {
+
+                    ContentGrid.Focusable = true;
+                    Keyboard.Focus(ContentGrid);
+                }
+                else
+                {
+                    Keyboard.ClearFocus();
+                    NativeMethods.FocusTaskbarWindow();
+                }
+
+                e.Handled = true;
             }
             else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
             {

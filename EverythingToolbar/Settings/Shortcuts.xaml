@@ -28,7 +28,8 @@
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
-                    CornerRadius="8">
+                    CornerRadius="8"
+                    Margin="0,0,0,25">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -45,15 +46,33 @@
             </Border>
 
             <ui:TextBlock FontTypography="BodyStrong"
-                          Text="Local Shortcuts"
-                          Margin="0,25,0,7"/>
+                          Text="Typing Behavior"
+                          Margin="0,0,0,7"/>
             <Border Padding="16"
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
-                    CornerRadius="8">
-                <StackPanel>
+                    CornerRadius="8"
+                    Margin="0,0,0,25">
+                <controls:SettingItem Title="Auto-focus search box">
+                    <controls:SettingItem.SettingContent>
+                        <ui:ToggleSwitch Tag="AutoFocusToggle" 
+                                         Checked="OnAutoFocusChecked" 
+                                         Unchecked="OnAutoFocusUnchecked"/>
+                    </controls:SettingItem.SettingContent>
+                </controls:SettingItem>
+            </Border>
 
+            <ui:TextBlock FontTypography="BodyStrong"
+                          Text="Local Shortcuts"
+                          Margin="0,0,0,7"/>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="0,0,0,25">
+                <StackPanel>
                     <controls:SettingItem Title="Open">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="Open" Width="150"
@@ -61,7 +80,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Open containing folder">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="OpenPath" Width="150"
@@ -69,7 +87,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Run as administrator">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="RunAsAdmin" Width="150"
@@ -77,7 +94,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Open in Everything">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="OpenInEverything" Width="150"
@@ -85,7 +101,13 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
+                    <controls:SettingItem Title="Focus search box">
+                        <controls:SettingItem.SettingContent>
+                            <ui:TextBox Tag="FocusSearch" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
+                        </controls:SettingItem.SettingContent>
+                    </controls:SettingItem>
                     <controls:SettingItem Title="File properties">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="Properties" Width="150"
@@ -93,7 +115,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Copy full path">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="CopyPath" Width="150"
@@ -101,7 +122,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Preview file (QuickLook/Seer)">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="Preview" Width="150"
@@ -109,7 +129,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Navigate results up">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="NavigateUp" Width="150"
@@ -117,7 +136,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Navigate results down">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="NavigateDown" Width="150"
@@ -125,7 +143,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Cycle filters forward">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="CycleNext" Width="150"
@@ -133,7 +150,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Cycle filters backward">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="CyclePrev" Width="150"
@@ -141,13 +157,12 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                 </StackPanel>
             </Border>
 
             <ui:TextBlock FontTypography="BodyStrong"
                           Text="Select Filter by Index"
-                          Margin="0,25,0,7"/>
+                          Margin="0,0,0,7"/>
             <Border Padding="16"
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
@@ -166,7 +181,6 @@
                             </ComboBox>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Start key">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBox Tag="FilterRangeStart" Width="150"
@@ -174,7 +188,6 @@
                                         LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Number of filters">
                         <controls:SettingItem.SettingContent>
                             <ui:NumberBox Tag="FilterRangeCount"
@@ -184,7 +197,6 @@
                                           ValueChanged="OnFilterRangeCountChanged"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-
                     <controls:SettingItem Title="Preview (keys that will select filters)">
                         <controls:SettingItem.SettingContent>
                             <ui:TextBlock Tag="FilterRangePreview"

@@ -174,6 +174,10 @@ namespace EverythingToolbar
         // Filter range: "StartKey,Modifiers,Count"
         [Option(DefaultValue = "35,2,10")] // D0, Ctrl, 10
         string LocalShortcutFilterRange { get; set; }
+            [Option(DefaultValue = true)]
+        public bool FocusSearchOnTyping { get; set; }
+        [Option(DefaultValue = "49,2")]   // F (49), Ctrl (2)
+        string LocalShortcutFocusSearch { get; set; }
     }
 
     public sealed class ToolbarSettingsWrapper(IToolbarSettings settings) : INotifyPropertyChanged
@@ -184,7 +188,7 @@ namespace EverythingToolbar
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        private static readonly ShortcutBinding DefaultFocusSearch = new(Key.F, ModifierKeys.Control);
         public bool IsMatchCase
         {
             get => settings.IsMatchCase;
@@ -196,6 +200,11 @@ namespace EverythingToolbar
                     OnPropertyChanged();
                 }
             }
+        }
+        public ShortcutBinding LocalShortcutFocusSearch
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutFocusSearch, DefaultFocusSearch);
+            set { settings.LocalShortcutFocusSearch = value.ToString(); OnPropertyChanged(); }
         }
 
         public bool IsRegExEnabled
@@ -262,7 +271,18 @@ namespace EverythingToolbar
                 }
             }
         }
-
+        public bool FocusSearchOnTyping
+        {
+            get => settings.FocusSearchOnTyping;
+            set
+            {
+                if (settings.FocusSearchOnTyping != value)
+                {
+                    settings.FocusSearchOnTyping = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public int PopupHeight
         {
             get => settings.PopupHeight;
