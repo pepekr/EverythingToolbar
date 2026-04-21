@@ -15,203 +15,186 @@
         <b:WpfUiBehavior />
     </i:Interaction.Behaviors>
 
-    <Page.Resources>
-        <Style x:Key="StaticShortcutButtonStyle" TargetType="ui:Button">
-            <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
-            <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1,1,1,3" />
-            <Setter Property="Padding" Value="4, 2" />
-            <Setter Property="Margin" Value="3, 2" />
-            <Setter Property="FontSize" Value="13" />
-            <Setter Property="MinWidth" Value="24" />
-            <Setter Property="IsHitTestVisible" Value="False" />
-            <Setter Property="Focusable" Value="False" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="{TemplateBinding Padding}"
-                            Margin="{TemplateBinding Margin}"
-                            MinWidth="{TemplateBinding MinWidth}"
-                            CornerRadius="6">
-                            <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                RecognizesAccessKey="True"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
-
-        <ScrollViewer>
+    <ScrollViewer>
         <StackPanel Margin="40">
+
             <ui:TextBlock FontTypography="Title"
                           Text="{x:Static properties:Resources.SettingsShortcuts}"
-                          Margin="0, 0, 0, 25"/>
+                          Margin="0,0,0,25"/>
             <ui:TextBlock FontTypography="BodyStrong"
                           Text="{x:Static properties:Resources.SettingsCustomShortcuts}"
-                          Margin="0, 0, 0, 7"/>
-            <Border
-                Padding="16"
-                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1, 1, 1, 1"
-                CornerRadius="8, 8, 8, 8">
+                          Margin="0,0,0,7"/>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:TextBlock Text="{x:Static properties:Resources.SettingsOpenSearchWindow}" VerticalAlignment="Center" TextWrapping="Wrap" />
+                    <ui:TextBlock Text="{x:Static properties:Resources.SettingsOpenSearchWindow}"
+                                  VerticalAlignment="Center" TextWrapping="Wrap"/>
                     <ui:TextBox Grid.Column="1"
-                                Name="ShortcutTextBox"
+                                Name="GlobalShortcutTextBox"
                                 Width="150"
-                                GotKeyboardFocus="OnGotKeyboardFocus"
-                                LostKeyboardFocus="OnLostKeyboardFocus" />
+                                GotKeyboardFocus="OnGotKeyboardFocusGlobal"
+                                LostKeyboardFocus="OnLostKeyboardFocusGlobal"/>
                 </Grid>
             </Border>
+
             <ui:TextBlock FontTypography="BodyStrong"
-                          Text="{x:Static properties:Resources.SettingsOtherShortcuts}"
-                          Margin="0, 25, 0, 7"/>
-            <Border
-                Padding="16"
-                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1, 1, 1, 1"
-                CornerRadius="8, 8, 8, 8">
+                          Text="Local Shortcuts"
+                          Margin="0,25,0,7"/>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
                 <StackPanel>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutNavigateResults}">
+
+                    <controls:SettingItem Title="Open">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="↑" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="↓" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="Open" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutNavigateHistory}">
+
+                    <controls:SettingItem Title="Open containing folder">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Ctrl" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="↑" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="↓" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="OpenPath" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutOpen}">
+
+                    <controls:SettingItem Title="Run as administrator">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Enter" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="Click" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="RunAsAdmin" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutOpenPath}">
+
+                    <controls:SettingItem Title="Open in Everything">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Ctrl" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Enter" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="Click" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="OpenInEverything" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutOpenInEverything}">
+
+                    <controls:SettingItem Title="File properties">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Shift" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Enter" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="Click" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="Properties" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutRunAsAdmin}">
+
+                    <controls:SettingItem Title="Copy full path">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Ctrl" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Shift" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Enter" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="Click" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="CopyPath" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutFileProperties}">
+
+                    <controls:SettingItem Title="Preview file (QuickLook/Seer)">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Alt" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Enter" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="/" />
-                                <ui:Button Content="Click" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="Preview" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutOpenSystemContextMenu}">
+
+                    <controls:SettingItem Title="Navigate results up">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Shift" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Right Click" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="NavigateUp" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocalNonPrintable"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutCopyFullPath}">
+
+                    <controls:SettingItem Title="Navigate results down">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Ctrl" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Shift" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="C" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="NavigateDown" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocalNonPrintable"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutCycleFilters}">
+
+                    <controls:SettingItem Title="Cycle filters forward">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:TextBlock VerticalAlignment="Center" Text="(" />
-                                <ui:Button Content="Shift" Style="{StaticResource StaticShortcutButtonStyle}" Margin="1" />
-                                <ui:TextBlock VerticalAlignment="Center" Text=")" Margin="0, 0, 5, 0" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="Tab" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="CycleNext" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutSelectFilter}">
+
+                    <controls:SettingItem Title="Cycle filters backward">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Ctrl" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="+" />
-                                <ui:Button Content="0" Style="{StaticResource StaticShortcutButtonStyle}" />
-                                <ui:TextBlock VerticalAlignment="Center" Text="-" />
-                                <ui:Button Content="9" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ui:TextBox Tag="CyclePrev" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
-                    <controls:SettingItem Title="{x:Static properties:Resources.ShortcutPreviewQuickLook}">
+
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock FontTypography="BodyStrong"
+                          Text="Select Filter by Index"
+                          Margin="0,25,0,7"/>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                <StackPanel>
+                    <controls:SettingItem Title="Modifier key">
                         <controls:SettingItem.SettingContent>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:Button Content="Space" Style="{StaticResource StaticShortcutButtonStyle}" />
-                            </StackPanel>
+                            <ComboBox Tag="FilterRangeModifier"
+                                      Width="150"
+                                      SelectionChanged="OnFilterRangeModifierChanged">
+                                <ComboBoxItem Content="None"/>
+                                <ComboBoxItem Content="Ctrl"/>
+                                <ComboBoxItem Content="Shift"/>
+                                <ComboBoxItem Content="Alt"/>
+                            </ComboBox>
+                        </controls:SettingItem.SettingContent>
+                    </controls:SettingItem>
+
+                    <controls:SettingItem Title="Start key">
+                        <controls:SettingItem.SettingContent>
+                            <ui:TextBox Tag="FilterRangeStart" Width="150"
+                                        GotKeyboardFocus="OnGotKeyboardFocusLocal"
+                                        LostKeyboardFocus="OnLostKeyboardFocusLocal"/>
+                        </controls:SettingItem.SettingContent>
+                    </controls:SettingItem>
+
+                    <controls:SettingItem Title="Number of filters">
+                        <controls:SettingItem.SettingContent>
+                            <ui:NumberBox Tag="FilterRangeCount"
+                                          Width="150"
+                                          Minimum="1"
+                                          Maximum="20"
+                                          ValueChanged="OnFilterRangeCountChanged"/>
+                        </controls:SettingItem.SettingContent>
+                    </controls:SettingItem>
+
+                    <controls:SettingItem Title="Preview (keys that will select filters)">
+                        <controls:SettingItem.SettingContent>
+                            <ui:TextBlock Tag="FilterRangePreview"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"/>
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
                 </StackPanel>
             </Border>
+
         </StackPanel>
     </ScrollViewer>
 </Page>
