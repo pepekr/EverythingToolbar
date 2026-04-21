@@ -37,12 +37,34 @@ namespace EverythingToolbar
 
         private void OnPreviewKeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.Key is >= Key.D0 and <= Key.D9 && Keyboard.Modifiers == ModifierKeys.Control)
+            var filterSettings = ToolbarSettings.User.LocalShortcutFilterRange;
+
+            // 1. Check if the current Modifiers match the user's setting
+            // 2. Check if the pressed key falls within the start/end range
+            if (Keyboard.Modifiers == filterSettings.Modifiers &&
+                e.Key >= filterSettings.StartKey &&
+                e.Key < filterSettings.StartKey + filterSettings.Count)
             {
-                var index = e.Key == Key.D0 ? 9 : e.Key - Key.D1;
+                // Calculate the index (e.g., if StartKey is F1, pressing F1 = 0, F2 = 1, etc.)
+                int index = e.Key - filterSettings.StartKey;
                 SearchState.Instance.SelectFilterFromIndex(index);
+                e.Handled = true;
+                return;
             }
-            else if (e.Key == Key.Escape)
+
+            // Legacy mapping: If they still use D1 as start key, let's keep D0 mapped to index 9
+            // so muscle memory doesn't break for default users.
+            if (Keyboard.Modifiers == filterSettings.Modifiers &&
+                filterSettings.StartKey == Key.D1 &&
+                filterSettings.Count >= 10 &&
+                e.Key == Key.D0)
+            {
+                SearchState.Instance.SelectFilterFromIndex(9);
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Escape)
             {
                 Keyboard.ClearFocus();
                 NativeMethods.FocusTaskbarWindow();

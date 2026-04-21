@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
-using System.IO;
-using System.Runtime.CompilerServices;
-using Config.Net;
+﻿using Config.Net;
 using EverythingToolbar.Data;
 using EverythingToolbar.Helpers;
-
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 namespace EverythingToolbar
 {
     public interface IToolbarSettings
@@ -137,6 +137,43 @@ namespace EverythingToolbar
 
         [Option(DefaultValue = "")]
         string UILanguage { get; set; }
+        // Local shortcut bindings stored as "Key,Modifiers" strings
+        [Option(DefaultValue = "83,2")]   // Enter, None
+        string LocalShortcutOpen { get; set; }
+
+        [Option(DefaultValue = "83,2")]   // Enter, Ctrl
+        string LocalShortcutOpenPath { get; set; }
+
+        [Option(DefaultValue = "83,6")]   // Enter, Ctrl+Shift
+        string LocalShortcutRunAsAdmin { get; set; }
+
+        [Option(DefaultValue = "83,4")]   // Enter, Shift
+        string LocalShortcutOpenInEverything { get; set; }
+
+        [Option(DefaultValue = "83,1")]   // Enter, Alt
+        string LocalShortcutProperties { get; set; }
+
+        [Option(DefaultValue = "46,6")]   // C, Ctrl+Shift
+        string LocalShortcutCopyPath { get; set; }
+
+        [Option(DefaultValue = "18,0")]   // Space, None
+        string LocalShortcutPreview { get; set; }
+
+        [Option(DefaultValue = "9,0")]    // Tab, None
+        string LocalShortcutCycleNext { get; set; }
+
+        [Option(DefaultValue = "9,4")]    // Tab, Shift
+        string LocalShortcutCyclePrev { get; set; }
+
+        [Option(DefaultValue = "230,0")]  // Up, None
+        string LocalShortcutNavigateUp { get; set; }
+
+        [Option(DefaultValue = "231,0")]  // Down, None
+        string LocalShortcutNavigateDown { get; set; }
+
+        // Filter range: "StartKey,Modifiers,Count"
+        [Option(DefaultValue = "35,2,10")] // D0, Ctrl, 10
+        string LocalShortcutFilterRange { get; set; }
     }
 
     public sealed class ToolbarSettingsWrapper(IToolbarSettings settings) : INotifyPropertyChanged
@@ -702,6 +739,90 @@ namespace EverythingToolbar
                     OnPropertyChanged();
                 }
             }
+        }
+        private static readonly ShortcutBinding DefaultOpen = new(Key.Enter);
+        private static readonly ShortcutBinding DefaultOpenPath = new(Key.Enter, ModifierKeys.Control);
+        private static readonly ShortcutBinding DefaultRunAsAdmin = new(Key.Enter, ModifierKeys.Control | ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultOpenInEverything = new(Key.Enter, ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultProperties = new(Key.Enter, ModifierKeys.Alt);
+        private static readonly ShortcutBinding DefaultCopyPath = new(Key.C, ModifierKeys.Control | ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultPreview = new(Key.Space);
+        private static readonly ShortcutBinding DefaultCycleNext = new(Key.Tab);
+        private static readonly ShortcutBinding DefaultCyclePrev = new(Key.Tab, ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultNavigateUp = new(Key.Up);
+        private static readonly ShortcutBinding DefaultNavigateDown = new(Key.Down);
+        private static readonly FilterRangeBinding DefaultFilterRange = new(Key.D0, ModifierKeys.Control, 10);
+
+        public ShortcutBinding LocalShortcutOpen
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutOpen, DefaultOpen);
+            set { settings.LocalShortcutOpen = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutOpenPath
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutOpenPath, DefaultOpenPath);
+            set { settings.LocalShortcutOpenPath = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutRunAsAdmin
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutRunAsAdmin, DefaultRunAsAdmin);
+            set { settings.LocalShortcutRunAsAdmin = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutOpenInEverything
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutOpenInEverything, DefaultOpenInEverything);
+            set { settings.LocalShortcutOpenInEverything = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutProperties
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutProperties, DefaultProperties);
+            set { settings.LocalShortcutProperties = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutCopyPath
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutCopyPath, DefaultCopyPath);
+            set { settings.LocalShortcutCopyPath = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutPreview
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutPreview, DefaultPreview);
+            set { settings.LocalShortcutPreview = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutCycleNext
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutCycleNext, DefaultCycleNext);
+            set { settings.LocalShortcutCycleNext = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutCyclePrev
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutCyclePrev, DefaultCyclePrev);
+            set { settings.LocalShortcutCyclePrev = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutNavigateUp
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutNavigateUp, DefaultNavigateUp);
+            set { settings.LocalShortcutNavigateUp = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutNavigateDown
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutNavigateDown, DefaultNavigateDown);
+            set { settings.LocalShortcutNavigateDown = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public FilterRangeBinding LocalShortcutFilterRange
+        {
+            get => FilterRangeBinding.FromString(settings.LocalShortcutFilterRange, DefaultFilterRange);
+            set { settings.LocalShortcutFilterRange = value.ToString(); OnPropertyChanged(); }
         }
     }
 
