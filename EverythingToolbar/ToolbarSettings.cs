@@ -178,6 +178,8 @@ namespace EverythingToolbar
         public bool FocusSearchOnTyping { get; set; }
         [Option(DefaultValue = "49,2")]   // F (49), Ctrl (2)
         string LocalShortcutFocusSearch { get; set; }
+        [Option(DefaultValue = false)]
+        bool IsAutoStartEverything { get; set; }
     }
 
     public sealed class ToolbarSettingsWrapper(IToolbarSettings settings) : INotifyPropertyChanged
@@ -189,6 +191,18 @@ namespace EverythingToolbar
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private static readonly ShortcutBinding DefaultFocusSearch = new(Key.F, ModifierKeys.Control);
+        public bool IsAutoStartEverything
+        {
+            get => settings.IsAutoStartEverything;
+            set
+            {
+                if (settings.IsAutoStartEverything != value)
+                {
+                    settings.IsAutoStartEverything = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public bool IsMatchCase
         {
             get => settings.IsMatchCase;
