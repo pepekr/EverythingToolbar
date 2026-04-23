@@ -84,6 +84,9 @@ namespace EverythingToolbar.Data
         {
             get
             {
+                if (!ToolbarSettings.User.IsShowIcons)
+                    return null;
+
                 if (_icon != null)
                     return _icon;
 

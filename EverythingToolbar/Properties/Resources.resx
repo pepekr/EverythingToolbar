@@ -687,4 +687,10 @@
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>A restart is required for the language changes to take effect. Do you want to restart now?</value>
   </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Show icons</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Show icons of files (if turned off - reduces search time)</value>
+  </data>
 </root>

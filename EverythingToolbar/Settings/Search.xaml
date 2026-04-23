@@ -98,6 +98,18 @@
                     </controls:SettingItem.SettingContent>
                 </controls:SettingItem>
             </Border>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,1,1"
+                    CornerRadius="0, 0, 8, 8">
+                <controls:SettingItem Title="{x:Static properties:Resources.SettingsShowIcons}"
+                                      HelpText="{x:Static properties:Resources.SettingsShowIconsHelp}">
+                    <controls:SettingItem.SettingContent>
+                        <ui:ToggleSwitch IsChecked="{Binding Source={x:Static local:ToolbarSettings.User}, Path=IsShowIcon, Mode=TwoWay}" />
+                    </controls:SettingItem.SettingContent>
+                </controls:SettingItem>
+            </Border>
 
             <ui:TextBlock FontTypography="BodyStrong"
                           Text="{x:Static properties:Resources.SettingsHistory}"

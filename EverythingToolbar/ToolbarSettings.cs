@@ -76,6 +76,9 @@ namespace EverythingToolbar
         bool IsShowQuickToggles { get; set; }
 
         [Option(DefaultValue = false)]
+        bool IsShowIcons { get; set; }
+
+        [Option(DefaultValue = false)]
         bool IsEnableHistory { get; set; }
 
         [Option(DefaultValue = false)]
@@ -487,6 +490,19 @@ namespace EverythingToolbar
                 if (settings.IsShowQuickToggles != value)
                 {
                     settings.IsShowQuickToggles = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsShowIcons
+        {
+            get => settings.IsShowIcons;
+            set
+            {
+                if (settings.IsShowIcons != value)
+                {
+                    settings.IsShowIcons = value;
                     OnPropertyChanged();
                 }
             }
