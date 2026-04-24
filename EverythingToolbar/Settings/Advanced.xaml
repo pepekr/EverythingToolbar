@@ -138,13 +138,28 @@
             <Border Padding="16"
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1,0,1,1"
-                    CornerRadius="0, 0,8,8"
+                    BorderThickness="1,0,1,0"
+                    CornerRadius="0, 0,0,0"
                     Visibility="{Binding WindowsBuildVersion, Converter={c:WindowsVersionToVisibilityConverter}, ConverterParameter='>=22000'}">
                 <controls:SettingItem Title="{x:Static properties:Resources.SettingsForceWin10Styles}"
                                       HelpText="{x:Static properties:Resources.SettingsForceWin10StylesHelp}">
                     <controls:SettingItem.SettingContent>
                         <ui:ToggleSwitch IsChecked="{Binding Source={x:Static local:ToolbarSettings.User}, Path=ForceWin10Behavior, Mode=TwoWay}" />
+                    </controls:SettingItem.SettingContent>
+                </controls:SettingItem>
+            </Border>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,1,1"
+                    CornerRadius="0, 0, 8, 8">
+                <controls:SettingItem Title="Backup &amp; Restore"
+                          HelpText="Export or import all your settings, rules, and shortcuts">
+                    <controls:SettingItem.SettingContent>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Export" Click="ExportSettings_Click" Margin="0,0,8,0" />
+                            <Button Content="Import" Click="ImportSettings_Click" />
+                        </StackPanel>
                     </controls:SettingItem.SettingContent>
                 </controls:SettingItem>
             </Border>
