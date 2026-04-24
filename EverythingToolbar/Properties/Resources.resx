@@ -693,4 +693,16 @@
   <data name="SettingsShowIconsHelp" xml:space="preserve">
     <value>Show icons of files (if turned off - reduces search time)</value>
   </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Backup / Restore</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Export or import all your settings, rules, shortcuts etc.</value>
+  </data>
+  <data name="ConfigExportButtonText" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ConfigImportButtonText" xml:space="preserve">
+    <value>Import</value>
+  </data>
 </root>

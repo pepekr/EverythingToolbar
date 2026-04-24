@@ -151,14 +151,17 @@
             <Border Padding="16"
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1,1,1,1"
+                    BorderThickness="1,0,1,1"
                     CornerRadius="0, 0, 8, 8">
-                <controls:SettingItem Title="Backup &amp; Restore"
-                          HelpText="Export or import all your settings, rules, and shortcuts">
+                <controls:SettingItem Title="{x:Static properties:Resources.ConfigImportExport}"
+                          HelpText="{x:Static properties:Resources.ConfigImportExportHelp}">
                     <controls:SettingItem.SettingContent>
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="Export" Click="ExportSettings_Click" Margin="0,0,8,0" />
-                            <Button Content="Import" Click="ImportSettings_Click" />
+                            <Button Content="{x:Static properties:Resources.ConfigExportButtonText}"
+                                    Click="ExportSettings_Click"
+                                    Margin="0,0,8,0" />
+                            <Button Content="{x:Static properties:Resources.ConfigImportButtonText}"
+                                    Click="ImportSettings_Click" />
                         </StackPanel>
                     </controls:SettingItem.SettingContent>
                 </controls:SettingItem>
