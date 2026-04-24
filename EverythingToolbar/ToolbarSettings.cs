@@ -75,7 +75,7 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsShowQuickToggles { get; set; }
 
-        [Option(DefaultValue = false)]
+        [Option(DefaultValue = true)]
         bool IsShowIcons { get; set; }
 
         [Option(DefaultValue = false)]

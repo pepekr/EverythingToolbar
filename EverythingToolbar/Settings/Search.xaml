@@ -106,7 +106,7 @@
                 <controls:SettingItem Title="{x:Static properties:Resources.SettingsShowIcons}"
                                       HelpText="{x:Static properties:Resources.SettingsShowIconsHelp}">
                     <controls:SettingItem.SettingContent>
-                        <ui:ToggleSwitch IsChecked="{Binding Source={x:Static local:ToolbarSettings.User}, Path=IsShowIcon, Mode=TwoWay}" />
+                        <ui:ToggleSwitch IsChecked="{Binding Source={x:Static local:ToolbarSettings.User}, Path=IsShowIcons, Mode=TwoWay}" />
                     </controls:SettingItem.SettingContent>
                 </controls:SettingItem>
             </Border>
