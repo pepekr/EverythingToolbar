@@ -699,10 +699,10 @@
   <data name="ConfigImportExportHelp" xml:space="preserve">
     <value>Export or import all your settings, rules, shortcuts etc.</value>
   </data>
-  <data name="ConfigExportButtonText" xml:space="preserve">
+  <data name="ConfigExportButton" xml:space="preserve">
     <value>Export</value>
   </data>
-  <data name="ConfigImportButtonText" xml:space="preserve">
+  <data name="ConfigImportButton" xml:space="preserve">
     <value>Import</value>
   </data>
 </root>

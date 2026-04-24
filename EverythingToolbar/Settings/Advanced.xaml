@@ -157,10 +157,10 @@
                           HelpText="{x:Static properties:Resources.ConfigImportExportHelp}">
                     <controls:SettingItem.SettingContent>
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{x:Static properties:Resources.ConfigExportButtonText}"
+                            <Button Content="{x:Static properties:Resources.ConfigExportButton}"
                                     Click="ExportSettings_Click"
                                     Margin="0,0,8,0" />
-                            <Button Content="{x:Static properties:Resources.ConfigImportButtonText}"
+                            <Button Content="{x:Static properties:Resources.ConfigImportButton}"
                                     Click="ImportSettings_Click" />
                         </StackPanel>
                     </controls:SettingItem.SettingContent>
