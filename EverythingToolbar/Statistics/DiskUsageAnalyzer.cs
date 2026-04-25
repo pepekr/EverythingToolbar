@@ -101,9 +101,9 @@ namespace EverythingToolbar.Statistics
 
             var data = new StatisticsData();
 
-            // Totals
+            // Totals  ("file:" = files only, excludes folders)
             progress?.Report("Counting indexed files...");
-            data.TotalIndexedFiles   = QueryCount($"{pathPfx}{sizePfx}!folder ");
+            data.TotalIndexedFiles   = QueryCount($"{pathPfx}{sizePfx}file:");
             data.TotalIndexedFolders = QueryCount($"{pathPfx}folder:");
 
             // File type categories
@@ -112,7 +112,7 @@ namespace EverythingToolbar.Statistics
             foreach (var cat in categories)
             {
                 progress?.Report($"Analysing {cat.Name}...");
-                cat.FileCount  = QueryCount($"{pathPfx}{sizePfx}ext:{string.Join("|", cat.Extensions)}");
+                cat.FileCount  = QueryCount($"{pathPfx}{sizePfx}file: ext:{string.Join(";", cat.Extensions)}");
                 categorised   += cat.FileCount;
             }
 
@@ -131,9 +131,9 @@ namespace EverythingToolbar.Statistics
 
             // Recently modified (ignores size filter — show full activity)
             progress?.Report("Counting recent activity...");
-            data.ModifiedToday     = QueryCount($"{pathPfx}dm:today !folder ");
-            data.ModifiedThisWeek  = QueryCount($"{pathPfx}dm:thisweek !folder ");
-            data.ModifiedThisMonth = QueryCount($"{pathPfx}dm:thismonth !folder ");
+            data.ModifiedToday     = QueryCount($"{pathPfx}dm:today file:");
+            data.ModifiedThisWeek  = QueryCount($"{pathPfx}dm:thisweek file:");
+            data.ModifiedThisMonth = QueryCount($"{pathPfx}dm:thismonth file:");
 
             // Top 10 largest files
             progress?.Report("Finding largest files...");
@@ -153,7 +153,7 @@ namespace EverythingToolbar.Statistics
         // ── Largest files ─────────────────────────────────────────────────────
         private static List<LargeFileInfo> GetLargestFiles(string pathPfx, string sizePfx, int count)
         {
-            var query = $"{pathPfx}{sizePfx}!folder ";
+            var query = $"{pathPfx}{sizePfx}file:";
             Everything_SetSearchW(query);
             Everything_SetMax((uint)count);
             Everything_SetRequestFlags(RequestFullPath | RequestSize);

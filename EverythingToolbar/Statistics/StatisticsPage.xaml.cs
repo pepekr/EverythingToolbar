@@ -153,29 +153,45 @@ namespace EverythingToolbar.Statistics
                 double sweepDeg = cat.Percentage / 100.0 * 360.0;
                 if (sweepDeg < 0.5) { startDeg += sweepDeg; continue; }
 
+                // ArcSegment cannot draw a full 360° arc (start == end point).
+                // Split into two 180° halves when the slice fills the whole chart.
                 var color = (Color)ColorConverter.ConvertFromString(cat.HexColor);
+                if (sweepDeg >= 359.9)
+                {
+                    var half1 = CreateDonutSlice(cx, cy, innerR, outerR, startDeg,         179.9, color);
+                    var half2 = CreateDonutSlice(cx, cy, innerR, outerR, startDeg + 179.9, 179.9, color);
+                    half1.ToolTip = half2.ToolTip = $"{cat.Name}: {cat.FormattedCount} files ({cat.FormattedPercentage})\nClick to search";
+                    half1.Cursor = half2.Cursor = Cursors.Hand;
+                    var captured2 = cat;
+                    half1.MouseLeftButtonUp += (_, _) => OpenSearch(captured2);
+                    half2.MouseLeftButtonUp += (_, _) => OpenSearch(captured2);
+                    PieCanvas.Children.Add(half1);
+                    PieCanvas.Children.Add(half2);
+                    startDeg += sweepDeg;
+                    continue;
+                }
+
                 var slice = CreateDonutSlice(cx, cy, innerR, outerR, startDeg, sweepDeg, color);
                 slice.ToolTip = $"{cat.Name}: {cat.FormattedCount} files ({cat.FormattedPercentage})\nClick to search";
                 slice.Cursor  = Cursors.Hand;
 
-                // ── Click → open search with this file type ──────────────────
+                // Click → open search with this file type
                 var captured = cat;
-                slice.MouseLeftButtonUp += (_, _) =>
-                {
-                    if (captured.Extensions.Length == 0) return;
-                    string query = "ext:" + string.Join("|", captured.Extensions);
-
-                    // Apply path filter if set
-                    if (!string.IsNullOrWhiteSpace(PathFilterBox.Text))
-                        query = $"path:\"{PathFilterBox.Text.Trim()}\" {query}";
-
-                    SearchState.Instance.SearchTerm = query;
-                    SearchWindow.Instance.Show();
-                };
+                slice.MouseLeftButtonUp += (_, _) => OpenSearch(captured);
 
                 PieCanvas.Children.Add(slice);
                 startDeg += sweepDeg;
             }
+        }
+
+        private void OpenSearch(FileTypeCategory cat)
+        {
+            if (cat.Extensions.Length == 0) return;
+            string query = "ext:" + string.Join(";", cat.Extensions);
+            if (!string.IsNullOrWhiteSpace(PathFilterBox.Text))
+                query = $"path:\"{PathFilterBox.Text.Trim()}\" {query}";
+            SearchState.Instance.SearchTerm = query;
+            SearchWindow.Instance.Show();
         }
 
         private static Path CreateDonutSlice(
