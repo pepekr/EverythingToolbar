@@ -6,6 +6,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:settings="clr-namespace:EverythingToolbar.Settings"
+        xmlns:statistics="clr-namespace:EverythingToolbar.Statistics"
         xmlns:behaviors="clr-namespace:EverythingToolbar.Behaviors"
         xmlns:properties="clr-namespace:EverythingToolbar.Properties"
         mc:Ignorable="d"
@@ -76,6 +77,10 @@
                     Content="{x:Static properties:Resources.SettingsAdvanced}"
                     Icon="{ui:SymbolIcon Warning24}"
                     TargetPageType="{x:Type settings:Advanced}" />
+                <ui:NavigationViewItem
+                    Content="{x:Static properties:Resources.SettingsStatistics}"
+                    Icon="{ui:SymbolIcon DataHistogram24}"
+                    TargetPageType="{x:Type statistics:StatisticsPage}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem

@@ -477,6 +477,9 @@
   <data name="SettingsAdvanced" xml:space="preserve">
     <value>Advanced</value>
   </data>
+  <data name="SettingsStatistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
   <data name="SettingsReportProblem" xml:space="preserve">
     <value>Report a problem</value>
   </data>

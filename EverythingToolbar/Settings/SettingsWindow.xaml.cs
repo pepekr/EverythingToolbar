@@ -9,11 +9,12 @@ namespace EverythingToolbar.Settings
 {
     public partial class SettingsWindow
     {
-        public SettingsWindow()
+        public SettingsWindow(Type? initialPage = null)
         {
             InitializeComponent();
 
-            Loaded += (_, _) => Dispatcher.BeginInvoke(() => ThisNavigationView.Navigate(typeof(About)));
+            Loaded += (_, _) => Dispatcher.BeginInvoke(() =>
+                ThisNavigationView.Navigate(initialPage ?? typeof(About)));
         }
 
         private void OnReportABugClicked(object sender, RoutedEventArgs e)
