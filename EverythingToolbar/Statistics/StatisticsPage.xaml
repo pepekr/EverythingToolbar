@@ -12,195 +12,376 @@
         <behaviors:WpfUiBehavior />
     </b:Interaction.Behaviors>
 
-    <ScrollViewer>
-        <Grid Margin="40,40,40,40">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />  <!-- Title + Refresh -->
-                <RowDefinition Height="Auto" />  <!-- Filters -->
-                <RowDefinition Height="Auto" />  <!-- Summary cards -->
-                <RowDefinition Height="Auto" />  <!-- Distribution header -->
-                <RowDefinition Height="Auto" />  <!-- Charts -->
-                <RowDefinition Height="Auto" />  <!-- Drives header -->
-                <RowDefinition Height="Auto" />  <!-- Drives -->
-            </Grid.RowDefinitions>
+    <!-- Root: indeterminate progress bar on top, content below -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <!-- ── Title + Refresh ────────────────────────────────────────── -->
-            <Grid Grid.Row="0" Margin="0,0,0,20">
-                <ui:TextBlock FontTypography="Title" Text="Statistics" VerticalAlignment="Center" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ui:TextBlock Name="StatusText"
-                                  FontTypography="Caption"
-                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                  VerticalAlignment="Center"
-                                  Margin="0,0,12,0" />
-                    <ui:Button Name="RefreshButton"
-                               Icon="{ui:SymbolIcon ArrowClockwise24}"
-                               Content="Refresh"
-                               Click="OnRefreshClicked" />
-                </StackPanel>
-            </Grid>
+        <!-- Loading indicator -->
+        <ProgressBar Grid.Row="0"
+                     Name="LoadingBar"
+                     IsIndeterminate="True"
+                     Visibility="Collapsed"
+                     Background="Transparent"
+                     Foreground="{DynamicResource SystemAccentColorBrush}" />
 
-            <!-- ── Filter bar ─────────────────────────────────────────────── -->
-            <Border Grid.Row="1"
-                    Background="{DynamicResource ControlFillColorDefaultBrush}"
-                    BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                    BorderThickness="1" CornerRadius="8"
-                    Padding="16,12" Margin="0,0,0,24">
-                <Grid>
+        <ScrollViewer Grid.Row="1">
+            <Grid Margin="40,32,40,40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />  <!-- Title + buttons -->
+                    <RowDefinition Height="Auto" />  <!-- Filters -->
+                    <RowDefinition Height="Auto" />  <!-- Summary cards -->
+                    <RowDefinition Height="Auto" />  <!-- Activity header -->
+                    <RowDefinition Height="Auto" />  <!-- Activity cards -->
+                    <RowDefinition Height="Auto" />  <!-- Distribution header -->
+                    <RowDefinition Height="Auto" />  <!-- Donut + legend -->
+                    <RowDefinition Height="Auto" />  <!-- Largest files header -->
+                    <RowDefinition Height="Auto" />  <!-- Largest files list -->
+                    <RowDefinition Height="Auto" />  <!-- Top extensions header -->
+                    <RowDefinition Height="Auto" />  <!-- Top extensions list -->
+                    <RowDefinition Height="Auto" />  <!-- Drives header -->
+                    <RowDefinition Height="Auto" />  <!-- Drives -->
+                </Grid.RowDefinitions>
+
+                <!-- ── Title + action buttons ─────────────────────────────── -->
+                <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <ui:TextBlock FontTypography="Title" Text="Statistics" VerticalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <ui:TextBlock Name="StatusText"
+                                      FontTypography="Caption"
+                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,12,0" />
+                        <ui:Button Name="ExportButton"
+                                   Icon="{ui:SymbolIcon Copy24}"
+                                   Content="Export"
+                                   Margin="0,0,8,0"
+                                   Click="OnExportClicked" />
+                        <ui:Button Name="RefreshButton"
+                                   Icon="{ui:SymbolIcon ArrowClockwise24}"
+                                   Content="Refresh"
+                                   Click="OnRefreshClicked" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- ── Filter bar ─────────────────────────────────────────── -->
+                <Border Grid.Row="1"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1" CornerRadius="8"
+                        Padding="16,12" Margin="0,0,0,24">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ui:TextBlock Grid.Column="0" VerticalAlignment="Center"
+                                      Margin="0,0,10,0" FontTypography="Body" Text="Folder:" />
+                        <ui:TextBox Grid.Column="1" Name="PathFilterBox"
+                                    PlaceholderText="All drives  (e.g. C:\Projects)"
+                                    VerticalAlignment="Center"
+                                    KeyDown="OnFilterKeyDown" />
+                        <ui:TextBlock Grid.Column="3" VerticalAlignment="Center"
+                                      Margin="0,0,10,0" FontTypography="Body" Text="Min size:" />
+                        <ComboBox Grid.Column="4" Name="SizeFilterBox"
+                                  VerticalAlignment="Center" SelectedIndex="0">
+                            <ComboBoxItem Content="Any size"  Tag="0" />
+                            <ComboBoxItem Content="≥ 1 KB"    Tag="1024" />
+                            <ComboBoxItem Content="≥ 100 KB"  Tag="102400" />
+                            <ComboBoxItem Content="≥ 1 MB"    Tag="1048576" />
+                            <ComboBoxItem Content="≥ 10 MB"   Tag="10485760" />
+                            <ComboBoxItem Content="≥ 100 MB"  Tag="104857600" />
+                            <ComboBoxItem Content="≥ 1 GB"    Tag="1073741824" />
+                        </ComboBox>
+                        <ui:Button Grid.Column="6" Content="Apply"
+                                   Icon="{ui:SymbolIcon Search24}"
+                                   Click="OnApplyFilterClicked" />
+                    </Grid>
+                </Border>
+
+                <!-- ── Summary cards ──────────────────────────────────────── -->
+                <Grid Grid.Row="2" Margin="0,0,0,28">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />  <!-- label -->
-                        <ColumnDefinition Width="*" />     <!-- path box -->
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="Auto" />  <!-- label -->
-                        <ColumnDefinition Width="180" />   <!-- size combo -->
-                        <ColumnDefinition Width="12" />
-                        <ColumnDefinition Width="Auto" />  <!-- apply button -->
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:TextBlock Grid.Column="0"
-                                  VerticalAlignment="Center"
-                                  Margin="0,0,10,0"
-                                  FontTypography="Body"
-                                  Text="Folder:" />
+                    <Border Grid.Column="0"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <StackPanel>
+                            <ui:TextBlock FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="INDEXED FILES" />
+                            <ui:TextBlock Name="TotalFilesText" FontTypography="Title"
+                                          Margin="0,4,0,0" Text="—" />
+                            <ui:TextBlock Name="TotalFoldersText" FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Margin="0,2,0,0" />
+                        </StackPanel>
+                    </Border>
 
-                    <ui:TextBox Grid.Column="1"
-                                Name="PathFilterBox"
-                                PlaceholderText="All drives  (e.g. C:\Projects)"
-                                VerticalAlignment="Center"
-                                KeyDown="OnFilterKeyDown" />
+                    <Border Grid.Column="2"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <StackPanel>
+                            <ui:TextBlock FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="TOP FILE TYPE" />
+                            <ui:TextBlock Name="TopCategoryName" FontTypography="Title"
+                                          Margin="0,4,0,0" Text="—" />
+                            <ui:TextBlock Name="TopCategoryCount" FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Margin="0,2,0,0" />
+                        </StackPanel>
+                    </Border>
 
-                    <ui:TextBlock Grid.Column="3"
-                                  VerticalAlignment="Center"
-                                  Margin="0,0,10,0"
-                                  FontTypography="Body"
-                                  Text="Min size:" />
-
-                    <ComboBox Grid.Column="4"
-                              Name="SizeFilterBox"
-                              VerticalAlignment="Center"
-                              SelectedIndex="0">
-                        <ComboBoxItem Content="Any size"   Tag="0" />
-                        <ComboBoxItem Content="≥ 1 KB"     Tag="1024" />
-                        <ComboBoxItem Content="≥ 100 KB"   Tag="102400" />
-                        <ComboBoxItem Content="≥ 1 MB"     Tag="1048576" />
-                        <ComboBoxItem Content="≥ 10 MB"    Tag="10485760" />
-                        <ComboBoxItem Content="≥ 100 MB"   Tag="104857600" />
-                        <ComboBoxItem Content="≥ 1 GB"     Tag="1073741824" />
-                    </ComboBox>
-
-                    <ui:Button Grid.Column="6"
-                               Content="Apply"
-                               Icon="{ui:SymbolIcon Search24}"
-                               Click="OnApplyFilterClicked" />
+                    <Border Grid.Column="4"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <StackPanel>
+                            <ui:TextBlock FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="DRIVES DETECTED" />
+                            <ui:TextBlock Name="DriveCountText" FontTypography="Title"
+                                          Margin="0,4,0,0" Text="—" />
+                            <ui:TextBlock Name="DriveNamesText" FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Margin="0,2,0,0" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
-            </Border>
 
-            <!-- ── Summary cards ─────────────────────────────────────────── -->
-            <Grid Grid.Row="2" Margin="0,0,0,28">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="8" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="8" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <!-- ── Recent activity header ─────────────────────────────── -->
+                <ui:TextBlock Grid.Row="3" FontTypography="Subtitle"
+                              Margin="0,0,0,14" Text="Recent Activity" />
 
-                <Border Grid.Column="0"
+                <!-- ── Recent activity cards (3 cards) ───────────────────── -->
+                <Grid Grid.Row="4" Margin="0,0,0,28">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <StackPanel>
+                            <ui:TextBlock FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="MODIFIED TODAY" />
+                            <ui:TextBlock Name="ModifiedTodayText" FontTypography="Title"
+                                          Margin="0,4,0,0" Text="—" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <StackPanel>
+                            <ui:TextBlock FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="MODIFIED THIS WEEK" />
+                            <ui:TextBlock Name="ModifiedWeekText" FontTypography="Title"
+                                          Margin="0,4,0,0" Text="—" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="4"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <StackPanel>
+                            <ui:TextBlock FontTypography="Caption"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="MODIFIED THIS MONTH" />
+                            <ui:TextBlock Name="ModifiedMonthText" FontTypography="Title"
+                                          Margin="0,4,0,0" Text="—" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- ── Distribution header ───────────────────────────────── -->
+                <ui:TextBlock Grid.Row="5" FontTypography="Subtitle"
+                              Margin="0,0,0,14" Text="File Type Distribution" />
+
+                <!-- ── Donut chart + legend ───────────────────────────────── -->
+                <Grid Grid.Row="6" Margin="0,0,0,28">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Donut (click on slice = search that type) -->
+                    <Border Grid.Column="0"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="12">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Canvas Name="PieCanvas" Width="210" Height="210" />
+                            <ui:TextBlock FontTypography="Caption"
+                                          HorizontalAlignment="Center"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Margin="0,6,0,0"
+                                          Text="Click a slice to search" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Legend + bars -->
+                    <Border Grid.Column="2"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="20,16">
+                        <ItemsControl Name="CategoryList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type statistics:FileTypeCategory}">
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="90" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="52" />
+                                            <ColumnDefinition Width="64" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Grid.Column="0" Width="10" Height="10"
+                                                 VerticalAlignment="Center" Fill="{Binding Brush}" />
+                                        <ui:TextBlock Grid.Column="1" Margin="8,0,8,0"
+                                                      VerticalAlignment="Center" FontTypography="Body"
+                                                      Text="{Binding Name}" />
+                                        <Grid Grid.Column="2" VerticalAlignment="Center">
+                                            <Rectangle Height="8" RadiusX="4" RadiusY="4"
+                                                       Fill="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                            <Rectangle Height="8" RadiusX="4" RadiusY="4"
+                                                       HorizontalAlignment="Left" Fill="{Binding Brush}">
+                                                <Rectangle.Width>
+                                                    <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
+                                                        <Binding Path="Percentage" />
+                                                        <Binding RelativeSource="{RelativeSource AncestorType=Grid}" Path="ActualWidth" />
+                                                    </MultiBinding>
+                                                </Rectangle.Width>
+                                            </Rectangle>
+                                        </Grid>
+                                        <ui:TextBlock Grid.Column="3" Margin="8,0,0,0"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                      FontTypography="Body"
+                                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                      Text="{Binding FormattedPercentage}" />
+                                        <ui:TextBlock Grid.Column="4" Margin="8,0,0,0"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                      FontTypography="BodyStrong"
+                                                      Text="{Binding FormattedCount}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </Grid>
+
+                <!-- ── Largest files header ───────────────────────────────── -->
+                <ui:TextBlock Grid.Row="7" FontTypography="Subtitle"
+                              Margin="0,0,0,14" Text="Top 10 Largest Files" />
+
+                <!-- ── Largest files list ─────────────────────────────────── -->
+                <Border Grid.Row="8" Margin="0,0,0,28"
                         Background="{DynamicResource ControlFillColorDefaultBrush}"
                         BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                        BorderThickness="1" CornerRadius="8" Padding="20,16">
-                    <StackPanel>
-                        <ui:TextBlock FontTypography="Caption"
-                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                      Text="INDEXED FILES" />
-                        <ui:TextBlock Name="TotalFilesText" FontTypography="Title" Margin="0,4,0,0" Text="—" />
-                        <ui:TextBlock Name="TotalFoldersText" FontTypography="Caption"
-                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                      Margin="0,2,0,0" />
-                    </StackPanel>
-                </Border>
-
-                <Border Grid.Column="2"
-                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                        BorderThickness="1" CornerRadius="8" Padding="20,16">
-                    <StackPanel>
-                        <ui:TextBlock FontTypography="Caption"
-                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                      Text="TOP FILE TYPE" />
-                        <ui:TextBlock Name="TopCategoryName" FontTypography="Title" Margin="0,4,0,0" Text="—" />
-                        <ui:TextBlock Name="TopCategoryCount" FontTypography="Caption"
-                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                      Margin="0,2,0,0" />
-                    </StackPanel>
-                </Border>
-
-                <Border Grid.Column="4"
-                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                        BorderThickness="1" CornerRadius="8" Padding="20,16">
-                    <StackPanel>
-                        <ui:TextBlock FontTypography="Caption"
-                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                      Text="DRIVES DETECTED" />
-                        <ui:TextBlock Name="DriveCountText" FontTypography="Title" Margin="0,4,0,0" Text="—" />
-                        <ui:TextBlock Name="DriveNamesText" FontTypography="Caption"
-                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                      Margin="0,2,0,0" />
-                    </StackPanel>
-                </Border>
-            </Grid>
-
-            <!-- ── Distribution header ───────────────────────────────────── -->
-            <ui:TextBlock Grid.Row="3" FontTypography="Subtitle" Margin="0,0,0,14"
-                          Text="File Type Distribution" />
-
-            <!-- ── Donut chart + legend ───────────────────────────────────── -->
-            <Grid Grid.Row="4" Margin="0,0,0,28">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="240" />
-                    <ColumnDefinition Width="24" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Border Grid.Column="0"
-                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                        BorderThickness="1" CornerRadius="8" Padding="12">
-                    <Canvas Name="PieCanvas" Width="210" Height="210" />
-                </Border>
-
-                <Border Grid.Column="2"
-                        Background="{DynamicResource ControlFillColorDefaultBrush}"
-                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                        BorderThickness="1" CornerRadius="8" Padding="20,16">
-                    <ItemsControl Name="CategoryList">
+                        BorderThickness="1" CornerRadius="8" Padding="0">
+                    <ItemsControl Name="LargestFilesList">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type statistics:FileTypeCategory}">
+                            <DataTemplate DataType="{x:Type statistics:LargeFileInfo}">
+                                <Grid Margin="20,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />  <!-- rank -->
+                                        <ColumnDefinition Width="*" />     <!-- name + path -->
+                                        <ColumnDefinition Width="100" />   <!-- size -->
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Rank badge -->
+                                    <Border Grid.Column="0"
+                                            Background="{DynamicResource ControlFillColorSecondaryBrush}"
+                                            CornerRadius="4" Width="28" Height="28"
+                                            Margin="0,0,14,0">
+                                        <ui:TextBlock HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      FontTypography="Caption"
+                                                      Text="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter},
+                                                             Converter={StaticResource IndexConverter}}" />
+                                    </Border>
+
+                                    <!-- File name + path -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <ui:TextBlock FontTypography="BodyStrong"
+                                                      Text="{Binding FileName}"
+                                                      TextTrimming="CharacterEllipsis" />
+                                        <ui:TextBlock FontTypography="Caption"
+                                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                      Text="{Binding ShortPath}"
+                                                      TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+
+                                    <!-- Size -->
+                                    <ui:TextBlock Grid.Column="2"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  FontTypography="BodyStrong"
+                                                  Foreground="{DynamicResource SystemAccentColorBrush}"
+                                                  Text="{Binding FormattedSize}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+
+                <!-- ── Top extensions header ──────────────────────────────── -->
+                <ui:TextBlock Grid.Row="9" FontTypography="Subtitle"
+                              Margin="0,0,0,14" Text="Top File Extensions" />
+
+                <!-- ── Top extensions bars ────────────────────────────────── -->
+                <Border Grid.Row="10" Margin="0,0,0,28"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <ItemsControl Name="ExtensionList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type statistics:ExtensionStat}">
                                 <Grid Margin="0,0,0,10">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="12" />
-                                        <ColumnDefinition Width="90" />
+                                        <ColumnDefinition Width="70" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="52" />
                                         <ColumnDefinition Width="64" />
                                     </Grid.ColumnDefinitions>
-
                                     <Ellipse Grid.Column="0" Width="10" Height="10"
-                                             VerticalAlignment="Center"
-                                             Fill="{Binding Brush}" />
-
+                                             VerticalAlignment="Center" Fill="{Binding Brush}" />
                                     <ui:TextBlock Grid.Column="1" Margin="8,0,8,0"
-                                                  VerticalAlignment="Center"
-                                                  FontTypography="Body"
-                                                  Text="{Binding Name}" />
-
+                                                  VerticalAlignment="Center" FontTypography="Body"
+                                                  Text="{Binding DisplayName}" />
                                     <Grid Grid.Column="2" VerticalAlignment="Center">
                                         <Rectangle Height="8" RadiusX="4" RadiusY="4"
                                                    Fill="{DynamicResource ControlFillColorSecondaryBrush}" />
                                         <Rectangle Height="8" RadiusX="4" RadiusY="4"
-                                                   HorizontalAlignment="Left"
-                                                   Fill="{Binding Brush}">
+                                                   HorizontalAlignment="Left" Fill="{Binding Brush}">
                                             <Rectangle.Width>
                                                 <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
                                                     <Binding Path="Percentage" />
@@ -209,13 +390,11 @@
                                             </Rectangle.Width>
                                         </Rectangle>
                                     </Grid>
-
                                     <ui:TextBlock Grid.Column="3" Margin="8,0,0,0"
                                                   VerticalAlignment="Center" HorizontalAlignment="Right"
                                                   FontTypography="Body"
                                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                   Text="{Binding FormattedPercentage}" />
-
                                     <ui:TextBlock Grid.Column="4" Margin="8,0,0,0"
                                                   VerticalAlignment="Center" HorizontalAlignment="Right"
                                                   FontTypography="BodyStrong"
@@ -225,59 +404,59 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Border>
+
+                <!-- ── Drives header ─────────────────────────────────────── -->
+                <ui:TextBlock Grid.Row="11" FontTypography="Subtitle"
+                              Margin="0,0,0,14" Text="Disk Space" />
+
+                <!-- ── Drive cards ───────────────────────────────────────── -->
+                <ItemsControl Grid.Row="12" Name="DriveList">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type statistics:DriveStats}">
+                            <Border Margin="0,0,8,8" Width="220"
+                                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                    BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                                    BorderThickness="1" CornerRadius="8" Padding="16,14">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,8">
+                                        <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
+                                        <ui:TextBlock HorizontalAlignment="Right" FontTypography="Caption"
+                                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                      Text="{Binding UsedPercent, StringFormat={}{0:F0}% used}" />
+                                    </Grid>
+                                    <Grid Height="8" Margin="0,0,0,8">
+                                        <Rectangle RadiusX="4" RadiusY="4"
+                                                   Fill="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                        <Rectangle RadiusX="4" RadiusY="4"
+                                                   HorizontalAlignment="Left" Fill="#0078D4">
+                                            <Rectangle.Width>
+                                                <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
+                                                    <Binding Path="UsedPercent" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Grid}" Path="ActualWidth" />
+                                                </MultiBinding>
+                                            </Rectangle.Width>
+                                        </Rectangle>
+                                    </Grid>
+                                    <Grid>
+                                        <ui:TextBlock FontTypography="Caption"
+                                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                      Text="{Binding FormattedUsed, StringFormat=Used: {0}}" />
+                                        <ui:TextBlock HorizontalAlignment="Right" FontTypography="Caption"
+                                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                      Text="{Binding FormattedTotal, StringFormat=Total: {0}}" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
             </Grid>
-
-            <!-- ── Drives header ─────────────────────────────────────────── -->
-            <ui:TextBlock Grid.Row="5" FontTypography="Subtitle" Margin="0,0,0,14"
-                          Text="Disk Space" />
-
-            <!-- ── Drive cards ───────────────────────────────────────────── -->
-            <ItemsControl Grid.Row="6" Name="DriveList">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type statistics:DriveStats}">
-                        <Border Margin="0,0,8,8" Width="220"
-                                Background="{DynamicResource ControlFillColorDefaultBrush}"
-                                BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                                BorderThickness="1" CornerRadius="8" Padding="16,14">
-                            <StackPanel>
-                                <Grid Margin="0,0,0,8">
-                                    <ui:TextBlock FontTypography="BodyStrong" Text="{Binding Name}" />
-                                    <ui:TextBlock HorizontalAlignment="Right" FontTypography="Caption"
-                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                  Text="{Binding UsedPercent, StringFormat={}{0:F0}% used}" />
-                                </Grid>
-                                <Grid Height="8" Margin="0,0,0,8">
-                                    <Rectangle RadiusX="4" RadiusY="4"
-                                               Fill="{DynamicResource ControlFillColorSecondaryBrush}" />
-                                    <Rectangle RadiusX="4" RadiusY="4"
-                                               HorizontalAlignment="Left" Fill="#0078D4">
-                                        <Rectangle.Width>
-                                            <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
-                                                <Binding Path="UsedPercent" />
-                                                <Binding RelativeSource="{RelativeSource AncestorType=Grid}" Path="ActualWidth" />
-                                            </MultiBinding>
-                                        </Rectangle.Width>
-                                    </Rectangle>
-                                </Grid>
-                                <Grid>
-                                    <ui:TextBlock FontTypography="Caption"
-                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                  Text="{Binding FormattedUsed, StringFormat=Used: {0}}" />
-                                    <ui:TextBlock HorizontalAlignment="Right" FontTypography="Caption"
-                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                  Text="{Binding FormattedTotal, StringFormat=Total: {0}}" />
-                                </Grid>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </Page>
