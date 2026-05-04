@@ -10,6 +10,8 @@ namespace EverythingToolbar.Helpers
 {
     public class StartMenuIntegration
     {
+        private const string User32Dll = "user32.dll";
+        private const string Kernel32Dll = "kernel32.dll";
         public static readonly StartMenuIntegration Instance = new();
         private static readonly Queue<Input> RecordedInputs = new();
         private static readonly ILogger Logger = ToolbarLogger.GetLogger<StartMenuIntegration>();
@@ -276,29 +278,29 @@ namespace EverythingToolbar.Helpers
             uint dwmsEventTime
         );
 
-        [DllImport("kernel32.dll")]
+        [DllImport(Kernel32Dll)]
         static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
 
-        [DllImport("kernel32.dll")]
+        [DllImport(Kernel32Dll)]
         static extern bool CloseHandle(IntPtr handle);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(User32Dll, CharSet = CharSet.Auto, SetLastError = true)]
         static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc? lpfn, IntPtr hMod, uint dwThreadId);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(User32Dll, CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(User32Dll, CharSet = CharSet.Auto, SetLastError = true)]
         static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         static extern IntPtr SetWinEventHook(
             uint eventMin,
             uint eventMax,
@@ -309,16 +311,16 @@ namespace EverythingToolbar.Helpers
             uint dwFlags
         );
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         static extern bool UnhookWinEvent(IntPtr hWinEventHook);
 
-        [DllImport("user32.Dll")]
+        [DllImport(User32Dll)]
         static extern int PostMessage(IntPtr hWnd, UInt32 msg, int wParam, int lParam);
 
         [DllImport("psapi.dll")]
         static extern uint GetModuleFileNameEx(IntPtr hWnd, IntPtr hModule, StringBuilder lpFileName, int nSize);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(User32Dll, SetLastError = true)]
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, IntPtr dwExtraInfo);
 
         [StructLayout(LayoutKind.Sequential)]
