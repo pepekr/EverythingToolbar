@@ -12,12 +12,13 @@ namespace EverythingToolbar.Helpers
 {
     internal static class ImageScalingHelper
     {
+        private const double DefaultDpi = 96.0;
         public static int GetScaledSize(int logicalSize)
         {
             double dpi = GetDpiForSystem();
-            if (dpi < 96)
-                dpi = 96;
-            return (int)Math.Ceiling(logicalSize * dpi / 96.0);
+            if (dpi < DefaultDpi)
+                dpi = DefaultDpi;
+            return (int)Math.Ceiling(logicalSize * dpi / DefaultDpi);
         }
 
         public static BitmapSource SetLogicalSize(BitmapSource source, int logicalSize, bool downOnly = false)
@@ -26,17 +27,17 @@ namespace EverythingToolbar.Helpers
             if (downOnly)
             {
                 double systemDpi = GetDpiForSystem();
-                if (systemDpi < 96)
-                    systemDpi = 96;
+                if (systemDpi < DefaultDpi)
+                    systemDpi = DefaultDpi;
 
-                double nativeLogicalSize = source.PixelWidth * 96.0 / systemDpi;
+                double nativeLogicalSize = source.PixelWidth * DefaultDpi / systemDpi;
                 targetLogicalSize = Math.Min(logicalSize, nativeLogicalSize);
             }
 
             if (targetLogicalSize <= 0)
                 return source;
 
-            double targetDpi = source.PixelWidth * 96.0 / targetLogicalSize;
+            double targetDpi = source.PixelWidth * DefaultDpi / targetLogicalSize;
             if (Math.Abs(source.DpiX - targetDpi) < 0.1)
                 return source;
 

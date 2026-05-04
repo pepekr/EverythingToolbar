@@ -6,6 +6,7 @@ namespace EverythingToolbar.Helpers
 {
     public class NativeMethods
     {
+        private const string User32Dll = "user32.dll";
         private static readonly ILogger Logger = ToolbarLogger.GetLogger<NativeMethods>();
 
         public static IntPtr FindTaskbarHandle()
@@ -52,23 +53,23 @@ namespace EverythingToolbar.Helpers
             }
         }
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         public static extern uint FlashWindow(IntPtr hWnd, bool bInvert);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         private static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         private static extern bool BringWindowToTop(IntPtr hWnd);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         private static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        [DllImport(User32Dll, CharSet = CharSet.Auto)]
         public static extern IntPtr FindWindowEx(
             IntPtr parentHandle,
             IntPtr childAfter,
@@ -76,19 +77,19 @@ namespace EverythingToolbar.Helpers
             string? windowTitle
         );
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         public static extern IntPtr FindWindow(string lpClassName, string? lpWindowName);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, ref Copydatastruct lParam);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         private static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(User32Dll, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
@@ -111,7 +112,7 @@ namespace EverythingToolbar.Helpers
             public IntPtr lpData;
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(User32Dll, SetLastError = true)]
         public static extern IntPtr CreateWindowEx(
             uint dwExStyle,
             [MarshalAs(UnmanagedType.LPStr)] string lpClassName,
@@ -127,10 +128,10 @@ namespace EverythingToolbar.Helpers
             IntPtr lpParam
         );
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
+        [DllImport(User32Dll, EntryPoint = "SetWindowLongPtr")]
         public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
-        [DllImport("user32.dll")]
+        [DllImport(User32Dll)]
         public static extern IntPtr DefWindowProc(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
 
         public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
