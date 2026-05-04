@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Вид</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Выберите язык интерфейса. Перезапустите приложение, чтобы применить изменения.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Атрибуты</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Использовать язык системы</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Требуется перезапуск</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Для вступления в силу изменений языка требуется перезапуск. Хотите перезапустить сейчас?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Показывать значки</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Показывать значки файлов (если отключено — ускоряет поиск)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Резервное копирование / Восстановление</value>

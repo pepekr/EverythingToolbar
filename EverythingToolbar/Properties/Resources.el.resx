@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Εμφάνιση</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Επιλέξτε τη γλώσσα περιβάλλοντος εργασίας. Επανεκκινήστε την εφαρμογή για να εφαρμόσετε τις αλλαγές.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Ιδιότητες</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Επανάληψη με αναζήτηση</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Χρήση γλώσσας συστήματος</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Απαιτείται επανεκκίνηση</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Απαιτείται επανεκκίνηση για να εφαρμοστούν οι αλλαγές γλώσσας. Θέλετε να κάνετε επανεκκίνηση τώρα;</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Εμφάνιση εικονιδίων</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Εμφάνιση εικονιδίων αρχείων (εάν απενεργοποιηθεί - μειώνει το χρόνο αναζήτησης)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Αντίγραφο ασφαλείας / Επαναφορά</value>

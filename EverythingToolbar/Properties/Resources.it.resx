@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Visualizzazione</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Scegli la lingua dell'interfaccia. Riavvia l'applicazione per applicare le modifiche.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributi</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Ripeti con ricerca</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Usa la lingua di sistema</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Riavvio richiesto</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>È necessario un riavvio affinché le modifiche alla lingua abbiano effetto. Vuoi riavviare ora?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Mostra icone</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Mostra le icone dei file (se disattivato, riduce il tempo di ricerca)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Backup / Ripristina</value>

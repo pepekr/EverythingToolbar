@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Hiển thị</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Chọn ngôn ngữ giao diện. Khởi động lại ứng dụng để áp dụng các thay đổi.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Thuộc tính</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Sử dụng ngôn ngữ hệ thống</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Yêu cầu khởi động lại</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Cần khởi động lại để các thay đổi ngôn ngữ có hiệu lực. Bạn có muốn khởi động lại ngay bây giờ không?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Hiển thị biểu tượng</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Hiển thị biểu tượng tệp (nếu tắt - giúp giảm thời gian tìm kiếm)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Sao lưu / Khôi phục</value>

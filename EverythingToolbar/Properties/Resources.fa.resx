@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>نمایش</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>زبان رابط کاربری را انتخاب کنید. برای اعمال تغییرات برنامه را مجدداً راه‌اندازی کنید.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>استفاده از زبان سیستم</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>راه‌اندازی مجدد مورد نیاز است</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>برای اعمال تغییرات زبان نیاز به راه‌اندازی مجدد است. آیا می‌خواهید اکنون راه‌اندازی مجدد کنید؟</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>نمایش آیکون‌ها</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>نمایش آیکون فایل‌ها (در صورت غیرفعال بودن - زمان جستجو را کاهش می‌دهد)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>پشتیبان‌گیری / بازیابی</value>

@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Widok</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Wybierz język interfejsu. Uruchom ponownie aplikację, aby zastosować zmiany.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Atrybuty</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Użyj języka systemu</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Wymagane ponowne uruchomienie</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Wymagane jest ponowne uruchomienie, aby zmiany języka weszły w życie. Czy chcesz zrestartować teraz?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Pokaż ikony</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Pokaż ikony plików (wyłączenie skraca czas wyszukiwania)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Kopia zapasowa / Przywróć</value>

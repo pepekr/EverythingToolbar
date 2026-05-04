@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>檢視</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>選擇介面語言。重新啟動應用程式以套用變更。</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>屬性</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>使用系統語言</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>需要重新啟動</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>需要重新啟動才能使語言變更生效。您要現在重新啟動嗎？</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>顯示圖示</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>顯示檔案圖示（若關閉 - 可縮短搜尋時間）</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>備份 / 還原</value>

@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Valitse käyttöliittymän kieli. Käynnistä sovellus uudelleen ottaaksesi muutokset käyttöön.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Käytä järjestelmän kieltä</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Uudelleenkäynnistys vaaditaan</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Kielimuutosten voimaantulo edellyttää uudelleenkäynnistystä. Haluatko käynnistää uudelleen nyt?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Näytä kuvakkeet</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Näytä tiedostojen kuvakkeet (jos poistettu käytöstä - lyhentää hakuaikaa)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Varmuuskopioi / Palauta</value>

@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Ansicht</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Wählen Sie die Oberflächensprache. Starten Sie die Anwendung neu, um die Änderungen zu übernehmen.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attribute</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Systemsprache verwenden</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Neustart erforderlich</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Ein Neustart ist erforderlich, damit die Sprachänderungen wirksam werden. Möchten Sie jetzt neu starten?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Symbole anzeigen</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Dateisymbole anzeigen (deaktivieren reduziert die Suchzeit)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Sichern / Wiederherstellen</value>

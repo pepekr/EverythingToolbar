@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Sprog</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Vælg brugerfladesprog. Genstart programmet for at anvende ændringerne.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Brug systemsprog</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Genstart påkrævet</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>En genstart er påkrævet, for at sprogændringerne træder i kraft. Vil du genstarte nu?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Vis ikoner</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Vis ikoner for filer (hvis deaktiveret - reducerer søgetiden)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Sikkerhedskopier / Gendan</value>

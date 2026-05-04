@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Вигляд</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Оберіть мову інтерфейсу. Перезапустіть програму, щоб застосувати зміни.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Атрибути</value>
   </data>
@@ -672,11 +678,20 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Використовувати мову системи</value>
+  </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Потрібне перезавантаження</value>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>Щоб зміни мови набули чинності, потрібне перезавантаження. Бажаєте перезавантажити зараз?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Показувати іконки</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Показувати іконки файлів (якщо вимкнено — пришвидшує пошук)</value>
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Резервне копіювання / Відновлення</value>
