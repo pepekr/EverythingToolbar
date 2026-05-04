@@ -43,6 +43,18 @@
                     BorderThickness="1,1,1,0"
                     CornerRadius="8,8,0,0">
                 <StackPanel>
+
+                    <controls:SettingItem Title="Theme"
+                                          HelpText="Choose the application's color theme.">
+                        <controls:SettingItem.SettingContent>
+                            <ComboBox HorizontalAlignment="Right"
+                                      ItemsSource="{Binding Themes}"
+                                      DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedValue="{Binding SelectedTheme, Mode=TwoWay}" />
+                        </controls:SettingItem.SettingContent>
+                    </controls:SettingItem>
+
                     <controls:SettingItem Title="{x:Static properties:Resources.SettingsView}"
                                           HelpText="{x:Static properties:Resources.SettingsViewLayoutHelp}">
                         <controls:SettingItem.SettingContent>
