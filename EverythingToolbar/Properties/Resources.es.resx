@@ -672,6 +672,12 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Reinicio requerido</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Es necesario reiniciar para que los cambios de idioma surtan efecto. ¿Desea reiniciar ahora?</value>
+  </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Copia de seguridad / Restaurar</value>
   </data>

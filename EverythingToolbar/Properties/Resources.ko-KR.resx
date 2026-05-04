@@ -672,6 +672,12 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>다시 시작 필요</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>언어 변경 사항을 적용하려면 다시 시작해야 합니다. 지금 다시 시작하시겠습니까?</value>
+  </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>백업 / 복원</value>
   </data>

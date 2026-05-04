@@ -672,6 +672,12 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Je vyžadován restart</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Aby se změny jazyka projevily, je nutný restart. Chcete restartovat nyní?</value>
+  </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Zálohovat / Obnovit</value>
   </data>

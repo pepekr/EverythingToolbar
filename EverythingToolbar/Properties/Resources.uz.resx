@@ -672,6 +672,12 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Qayta ishga tushirish talab qilinadi</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Til o'zgarishlari kuchga kirishi uchun qayta ishga tushirish kerak. Hozir qayta ishga tushirishni xohlaysizmi?</value>
+  </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Zaxiralash / Qayta tiklash</value>
   </data>

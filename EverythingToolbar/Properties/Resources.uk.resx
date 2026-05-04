@@ -672,6 +672,12 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Потрібне перезавантаження</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Щоб зміни мови набули чинності, потрібне перезавантаження. Бажаєте перезавантажити зараз?</value>
+  </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Резервне копіювання / Відновлення</value>
   </data>

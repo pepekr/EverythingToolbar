@@ -672,6 +672,12 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Omstart kreves</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>En omstart kreves for at språkendringene skal tre i kraft. Vil du starte på nytt nå?</value>
+  </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Sikkerhetskopier / Gjenopprett</value>
   </data>

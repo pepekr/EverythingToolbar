@@ -695,14 +695,18 @@
   </data>
   <data name="ConfigImportExport" xml:space="preserve">
     <value>Backup / Restore</value>
+    <comment>AI-generated</comment>
   </data>
   <data name="ConfigImportExportHelp" xml:space="preserve">
     <value>Export or import all your settings, rules, shortcuts etc.</value>
+    <comment>translation is AI-generated</comment>
   </data>
   <data name="ConfigExportButton" xml:space="preserve">
     <value>Export</value>
+    <comment>AI-generated</comment>
   </data>
   <data name="ConfigImportButton" xml:space="preserve">
     <value>Import</value>
+    <comment>AI-generated</comment>
   </data>
 </root>
