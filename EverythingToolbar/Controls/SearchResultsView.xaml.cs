@@ -225,6 +225,7 @@ namespace EverythingToolbar.Controls
 
         private void OnPreviewLeftMouseButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // Prevents deselecting an item when Ctrl is held down and clicking on an already selected item
             if (Keyboard.Modifiers == ModifierKeys.Control)
             {
                 if (e.OriginalSource is not DependencyObject source)
@@ -238,34 +239,35 @@ namespace EverythingToolbar.Controls
 
         private void OnKeyPressed(object? sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            var s = ToolbarSettings.User;
+
+            if (s.LocalShortcutPreview.Matches(e))
             {
                 PreviewSelectedFile();
             }
-            else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.Enter)
+            else if (s.LocalShortcutRunAsAdmin.Matches(e))
             {
                 RunAsAdmin(this, new RoutedEventArgs());
                 SearchResultsListView.SelectedIndex = -1;
             }
-            else if (Keyboard.Modifiers == ModifierKeys.Shift && e.Key == Key.Enter)
+            else if (s.LocalShortcutOpenInEverything.Matches(e))
             {
                 var first = GetSelectedItems().FirstOrDefault();
                 if (first == null) return;
-
                 SearchResultProvider.OpenSearchInEverything(SearchState.Instance, first.FullPathAndFileName);
                 SearchResultsListView.SelectedIndex = -1;
             }
-            else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Enter)
+            else if (s.LocalShortcutOpenPath.Matches(e))
             {
                 OpenFilePath(this, new RoutedEventArgs());
                 SearchResultsListView.SelectedIndex = -1;
             }
-            else if (Keyboard.Modifiers == ModifierKeys.Alt && (e.Key == Key.Enter || e.SystemKey == Key.Enter))
+            else if (s.LocalShortcutProperties.Matches(e))
             {
                 ShowFileProperties(this, new RoutedEventArgs());
                 SearchResultsListView.SelectedIndex = -1;
             }
-            else if (e.Key == Key.Enter)
+            else if (s.LocalShortcutOpen.Matches(e))
             {
                 if (SearchResultsListView.SelectedIndex >= 0)
                 {
@@ -277,23 +279,24 @@ namespace EverythingToolbar.Controls
                     SelectNextSearchResult();
                 }
             }
-            else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.C)
+            else if (s.LocalShortcutCopyPath.Matches(e))
             {
                 var paths = string.Join(Environment.NewLine, GetSelectedItems().Select(i => i.FullPathAndFileName));
                 if (!string.IsNullOrEmpty(paths)) Clipboard.SetText(paths);
             }
-            else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.C)
+            else if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
             {
+                // Keep Ctrl+C for copy file non-configurable (standard behavior)
                 var paths = new StringCollection();
                 foreach (var item in GetSelectedItems()) paths.Add(item.FullPathAndFileName);
                 if (paths.Count > 0) Clipboard.SetFileDropList(paths);
             }
-            else if (e.Key == Key.Up)
+            else if (s.LocalShortcutNavigateUp.Matches(e))
             {
                 HandleUpNavigation();
                 e.Handled = true;
             }
-            else if (e.Key == Key.Down)
+            else if (s.LocalShortcutNavigateDown.Matches(e))
             {
                 HandleDownNavigation();
                 e.Handled = true;
@@ -318,6 +321,13 @@ namespace EverythingToolbar.Controls
             else if (e.Key == Key.R && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 ToolbarSettings.User.IsRegExEnabled = !ToolbarSettings.User.IsRegExEnabled;
+            }
+            else
+            {
+                // Filter range: Ctrl+0-9 (or whatever the user configured)
+                var filterIndex = s.LocalShortcutFilterRange.MatchFilterIndex(e);
+                if (filterIndex >= 0)
+                    SearchState.Instance.SelectFilterFromIndex(filterIndex);
             }
         }
 
@@ -515,7 +525,6 @@ namespace EverythingToolbar.Controls
         {
             var paths = new StringCollection();
             foreach (var item in GetSelectedItems()) paths.Add(item.FullPathAndFileName);
-
             if (paths.Count > 0)
                 Clipboard.SetFileDropList(paths);
         }
@@ -551,6 +560,14 @@ namespace EverythingToolbar.Controls
                     foreach (var item in GetSelectedItems()) item.ShowProperties();
                     SearchWindow.Instance.Hide();
                     break;
+                case ModifierKeys.Control:
+                    foreach (var item in GetSelectedItems()) item.OpenPath();
+                    SearchWindow.Instance.Hide();
+                    break;
+                case ModifierKeys.Shift:
+                    foreach (var item in GetSelectedItems()) item.ShowInEverything();
+                    SearchWindow.Instance.Hide();
+                    break;
                 default:
                     OpenSelectedSearchResult();
                     break;
@@ -575,6 +592,78 @@ namespace EverythingToolbar.Controls
         private void ShowFileWindowsContextMenu(object sender, RoutedEventArgs e)
         {
             SearchResult.ShowWindowsContextMenu(GetSelectedItems());
+        }
+
+        private void Cut(object sender, RoutedEventArgs e)
+        {
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0)
+                return;
+
+            foreach (var item in items)
+                item.CutToClipboard();
+        }
+
+        private void Rename(object sender, RoutedEventArgs e)
+        {
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0)
+                return;
+
+            if (items.Count > 1)
+            {
+                FluentMessageBox
+                    .CreateError(
+                        Properties.Resources.MessageBoxRenameSingleItemOnly,
+                        Properties.Resources.MessageBoxErrorTitle
+                    )
+                    .ShowDialogAsync();
+                return;
+            }
+
+            items[0].Rename();
+            SearchWindow.Instance.Hide();
+        }
+
+        private void DeleteToRecycleBin(object sender, RoutedEventArgs e)
+        {
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0)
+                return;
+
+            foreach (var item in items)
+                item.DeleteToRecycleBin();
+
+            SearchWindow.Instance.Hide();
+        }
+
+        private async void DeletePermanently(object sender, RoutedEventArgs e)
+        {
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0)
+                return;
+
+            var message = items.Count == 1
+                ? string.Format(
+                    Properties.Resources.MessageBoxDeletePermanentlyConfirm,
+                    items[0].FileName
+                )
+                : string.Format(
+                    Properties.Resources.MessageBoxDeletePermanentlyConfirmMultiple,
+                    items.Count
+                );
+
+            var result = await FluentMessageBox
+                .CreateYesNo(message, Properties.Resources.MessageBoxWarningTitle)
+                .ShowDialogAsync();
+
+            if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
+            {
+                foreach (var item in items)
+                    item.DeletePermanently();
+            }
+
+            SearchWindow.Instance.Hide();
         }
 
         private void OnOpenWithMenuLoaded(object sender, RoutedEventArgs e)

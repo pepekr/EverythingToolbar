@@ -17,6 +17,14 @@ namespace EverythingToolbar.Settings
                 ThisNavigationView.Navigate(initialPage ?? typeof(About)));
         }
 
+        // Handles the Navigation View's Back Button
+        private void OnBackRequested(object sender, RoutedEventArgs e)
+        {
+            // Closes the settings window, returning the user to their normal workflow
+            this.Close();
+            EverythingToolbar.SearchWindow.Instance.Show();
+        }
+
         private void OnReportABugClicked(object sender, RoutedEventArgs e)
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";

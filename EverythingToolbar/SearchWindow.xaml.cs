@@ -34,18 +34,110 @@ namespace EverythingToolbar
 
             EventDispatcher.Instance.InvokeFocusRequested(this, EventArgs.Empty);
         }
+        private async void EnsureEverythingIsRunning()
+        {
+            // 1. Check if the user actually wants this feature turned on
+            if (!ToolbarSettings.User.IsAutoStartEverything)
+                return;
 
+            // 2. Check if it's already running
+            var processes = System.Diagnostics.Process.GetProcessesByName("Everything");
+            if (processes.Length == 0)
+            {
+                try
+                {
+                    string everythingPath = ToolbarSettings.User.EverythingPath;
+
+                    if (!System.IO.File.Exists(everythingPath))
+                    {
+                        System.Windows.MessageBox.Show(
+                            $"Auto-Start Failed!\nCould not find Everything.exe at:\n{everythingPath}\n\nPlease update your path in Settings -> Search.",
+                            "EverythingToolbar Debug");
+                        return;
+                    }
+
+                    // Launch Everything in the background
+                    var startInfo = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = everythingPath,
+                        Arguments = "-startup",
+                        UseShellExecute = true
+                    };
+                    System.Diagnostics.Process.Start(startInfo);
+
+                    // Show the "Starting the engine..." UI
+                    StartingEngineOverlay.Visibility = Visibility.Visible;
+
+                    // Keep the UI up for 2.5 seconds
+                    await System.Threading.Tasks.Task.Delay(2500);
+
+                    // Hide the UI 
+                    StartingEngineOverlay.Visibility = Visibility.Collapsed;
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Launch failed: {ex.Message}");
+                    StartingEngineOverlay.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
         private void OnPreviewKeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.Key is >= Key.D0 and <= Key.D9 && Keyboard.Modifiers == ModifierKeys.Control)
+            var filterSettings = ToolbarSettings.User.LocalShortcutFilterRange;
+
+            // 1. Check if the current Modifiers match the user's setting
+            // 2. Check if the pressed key falls within the start/end range
+            if (Keyboard.Modifiers == filterSettings.Modifiers &&
+                e.Key >= filterSettings.StartKey &&
+                e.Key < filterSettings.StartKey + filterSettings.Count)
             {
-                var index = e.Key == Key.D0 ? 9 : e.Key - Key.D1;
+                // Calculate the index (e.g., if StartKey is F1, pressing F1 = 0, F2 = 1, etc.)
+                int index = e.Key - filterSettings.StartKey;
                 SearchState.Instance.SelectFilterFromIndex(index);
+                e.Handled = true;
+                return;
             }
-            else if (e.Key == Key.Escape)
+
+            // Legacy mapping: If they still use D1 as start key, let's keep D0 mapped to index 9
+            // so muscle memory doesn't break for default users.
+            if (Keyboard.Modifiers == filterSettings.Modifiers &&
+                filterSettings.StartKey == Key.D1 &&
+                filterSettings.Count >= 10 &&
+                e.Key == Key.D0)
             {
-                Keyboard.ClearFocus();
-                NativeMethods.FocusTaskbarWindow();
+                SearchState.Instance.SelectFilterFromIndex(9);
+                e.Handled = true;
+                return;
+            }
+
+            // ✨ NEW FOCUS SEARCH BOX SHORTCUT ✨
+            var focusShortcut = ToolbarSettings.User.LocalShortcutFocusSearch;
+            if (e.Key == focusShortcut.Key && Keyboard.Modifiers == focusShortcut.Modifiers)
+            {
+                SearchBox.Focus();
+
+                // Optional: Select all text when focused so you can immediately type to overwrite
+                // SearchBox.SelectAll(); 
+
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                if (SearchBox.IsKeyboardFocusWithin)
+                {
+
+                    ContentGrid.Focusable = true;
+                    Keyboard.Focus(ContentGrid);
+                }
+                else
+                {
+                    Keyboard.ClearFocus();
+                    NativeMethods.FocusTaskbarWindow();
+                }
+
+                e.Handled = true;
             }
             else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
             {
@@ -96,6 +188,7 @@ namespace EverythingToolbar
 
         public new void Show()
         {
+            EnsureEverythingIsRunning();
             var activate = TaskbarStateManager.Instance.IsIcon;
 
             if (Visibility == Visibility.Visible)
@@ -159,6 +252,7 @@ namespace EverythingToolbar
 
         public void AnimateShow(double left, double top, double width, double height, Edge taskbarEdge)
         {
+            EnsureEverythingIsRunning();
             // Clearing all animations allows us to set the corresponding properties again
             ClearAnimations();
 

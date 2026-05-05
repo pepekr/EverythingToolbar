@@ -57,6 +57,10 @@
     <Content Include="Themes\Win10\DARK.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Themes\Win10\DRACULA.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
     <Content Include="Themes\Win10\LIGHT.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -89,6 +93,14 @@
     </Content>
     <Content Include="Themes\Win10\Controls\SearchResultPreviewPane.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Win10\OLED.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Themes\Win10\SOLARIZED.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
     </Content>
     <Content Include="Themes\Win11\Controls\ContextMenu.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -129,6 +141,9 @@
     <Content Include="Themes\Win11\DARK.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Themes\Win11\DRACULA.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Themes\Win11\LIGHT.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -139,6 +154,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Remove="ItemTemplates\Compact.xaml" />
+    <Page Remove="Themes\Win10\DRACULA.xaml" />
+    <Page Remove="Themes\Win10\OLED.xaml" />
+    <Page Remove="Themes\Win10\SOLARIZED.xaml" />
+    <Page Remove="Themes\Win11\DRACULA.xaml" />
+    <Page Remove="Themes\Win11\OLED.xaml" />
+    <Page Remove="Themes\Win11\SOLARIZED.xaml" />
     <Content Include="ItemTemplates\Compact.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -153,6 +174,14 @@
     <Page Remove="ItemTemplates\NormalDetailed.xaml" />
     <Content Include="ItemTemplates\NormalDetailed.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Win11\OLED.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Themes\Win11\SOLARIZED.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
     </Content>
     <Page Update="Settings\About.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -248,7 +277,7 @@
       <Output TaskParameter="Assemblies" ItemName="Targets" />
     </GetAssemblyIdentity>
     <ItemGroup>
-      <VersionNumber Include="@(Targets-&gt;'%(Version)')" />
+      <VersionNumber Include="@(Targets->'%(Version)')" />
     </ItemGroup>
   </Target>
   <PropertyGroup>

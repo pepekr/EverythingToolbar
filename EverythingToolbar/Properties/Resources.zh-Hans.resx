@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -314,6 +314,12 @@
   </data>
   <data name="SettingsView" xml:space="preserve">
     <value>视图</value>
+  </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>选择界面语言。重新启动应用程序以应用更改。</value>
   </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>属性</value>
@@ -671,5 +677,36 @@
   </data>
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>循环并刷新搜索</value>
+  </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>使用系统语言</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>需要重新启动</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>需要重新启动才能使语言更改生效。您想现在重新启动吗？</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>显示图标</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>显示文件图标（如果关闭 - 可缩短搜索时间）</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>备份 / 还原</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>导出或导入所有的设置、规则、快捷键等。</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>导入</value>
+  </data>
+</root>
+  <data name="ContextMenuDeletePermanently" xml:space="preserve">
+    <value>Delete Permanently</value>
   </data>
 </root>
