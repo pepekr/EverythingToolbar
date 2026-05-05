@@ -317,9 +317,11 @@
   </data>
   <data name="SettingsUILanguage" xml:space="preserve">
     <value>Language</value>
+    <comment>AI-generated</comment>
   </data>
   <data name="SettingsUILanguageHelp" xml:space="preserve">
     <value>Choose the UI language. Restart the application to apply changes.</value>
+    <comment>AI-generated</comment>
   </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
@@ -680,11 +682,38 @@
   </data>
   <data name="SettingsUseSystemLanguage" xml:space="preserve">
     <value>Use System Language</value>
+    <comment>AI-generated</comment>
   </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
     <value>Restart required</value>
+    <comment>AI-generated</comment>
   </data>
   <data name="MessageBoxRestartMessage" xml:space="preserve">
     <value>A restart is required for the language changes to take effect. Do you want to restart now?</value>
+    <comment>AI-generated</comment>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Show icons</value>
+    <comment>AI-generated</comment>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Show icons of files (if turned off - reduces search time)</value>
+    <comment>AI-generated</comment>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Backup / Restore</value>
+    <comment>AI-generated</comment>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Export or import all your settings, rules, shortcuts etc.</value>
+    <comment>AI-generated</comment>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Export</value>
+    <comment>AI-generated</comment>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>Import</value>
+    <comment>AI-generated</comment>
   </data>
 </root>

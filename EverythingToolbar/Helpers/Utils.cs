@@ -9,6 +9,7 @@ namespace EverythingToolbar.Helpers
 {
     public static class Utils
     {
+        private const string User32Dll = "user32.dll";
         private static readonly ILogger Logger = ToolbarLogger.GetLogger(nameof(Utils));
 
         public static string GetConfigDirectory()
@@ -161,11 +162,11 @@ namespace EverythingToolbar.Helpers
             SystemParametersInfo(SpiSetclientareaanimation, 0, enabled, SpifSendchange);
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(User32Dll, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SystemParametersInfo(int uiAction, int uiParam, out bool pvParam, int fWinIni);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(User32Dll, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SystemParametersInfo(int uiAction, int uiParam, bool pvParam, int fWinIni);
     }

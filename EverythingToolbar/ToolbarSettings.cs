@@ -10,44 +10,24 @@ namespace EverythingToolbar
 {
     public interface IToolbarSettings
     {
+        #region Search & Filtering
         [Option(DefaultValue = false)]
         bool IsMatchCase { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsRegExEnabled { get; set; }
 
-        [Option(DefaultValue = FocusBehavior.Repeat)]
-        FocusBehavior ListFocusBehavior { get; set; }
-
         [Option(DefaultValue = false)]
         bool IsMatchPath { get; set; }
-
-        [Option(DefaultValue = 1)]
-        int SortBy { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsSortDescending { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsMatchWholeWord { get; set; }
 
-        [Option(DefaultValue = 700)]
-        int PopupHeight { get; set; }
+        [Option(DefaultValue = true)]
+        bool IsSearchAsYouType { get; set; }
 
-        [Option(DefaultValue = 700)]
-        int PopupWidth { get; set; }
-
-        [Option(DefaultValue = "C:\\Program Files\\Everything\\Everything.exe")]
-        string EverythingPath { get; set; }
-
-        [Option(DefaultValue = "Normal")]
-        string ItemTemplate { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsAutoApplyCustomActions { get; set; }
-
-        [Option(DefaultValue = 3)]
-        int MaxTabItems { get; set; }
+        [Option(DefaultValue = true)]
+        bool FocusSearchOnTyping { get; set; }
 
         [Option(DefaultValue = "")]
         string FilterOrder { get; set; }
@@ -58,11 +38,25 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsImportFilters { get; set; }
 
-        [Option(DefaultValue = 9)]
-        int ShortcutModifiers { get; set; }
+        [Option(DefaultValue = false)]
+        bool IsRememberFilter { get; set; }
 
-        [Option(DefaultValue = 62)]
-        int ShortcutKey { get; set; }
+        [Option(DefaultValue = "")]
+        string LastFilter { get; set; }
+        #endregion
+
+        #region UI & Appearance
+        [Option(DefaultValue = 700)]
+        int PopupHeight { get; set; }
+
+        [Option(DefaultValue = 700)]
+        int PopupWidth { get; set; }
+
+        [Option(DefaultValue = "Normal")]
+        string ItemTemplate { get; set; }
+
+        [Option(DefaultValue = 3)]
+        int MaxTabItems { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsAnimationsDisabled { get; set; }
@@ -76,17 +70,8 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsShowQuickToggles { get; set; }
 
-        [Option(DefaultValue = false)]
-        bool IsEnableHistory { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsReplaceStartMenuSearch { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsRememberFilter { get; set; }
-
-        [Option(DefaultValue = "")]
-        string LastFilter { get; set; }
+        [Option(DefaultValue = true)]
+        bool IsShowIcons { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsThumbnailsEnabled { get; set; }
@@ -94,11 +79,46 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsPreviewPaneEnabled { get; set; }
 
+        [Option(DefaultValue = false)]
+        bool IsForceCenterAlignment { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool ForceWin10Theme { get; set; }
+
         [Option(DefaultValue = "")]
-        string InstanceName { get; set; }
+        string ThemeOverride { get; set; }
+
+        [Option(DefaultValue = "")]
+        string UILanguage { get; set; }
 
         [Option(DefaultValue = "")]
         string IconName { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsTrayIconEnabled { get; set; }
+        #endregion
+
+        #region Application Behavior & Integration
+        [Option(DefaultValue = 1)]
+        int SortBy { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsSortDescending { get; set; }
+
+        [Option(DefaultValue = "C:\\Program Files\\Everything\\Everything.exe")]
+        string EverythingPath { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsAutoApplyCustomActions { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsEnableHistory { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsReplaceStartMenuSearch { get; set; }
+
+        [Option(DefaultValue = "")]
+        string InstanceName { get; set; }
 
         [Option(DefaultValue = "0")]
         string SkippedUpdate { get; set; }
@@ -109,47 +129,34 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsSetupAssistantDisabled { get; set; }
 
-        [Option(DefaultValue = false)]
-        bool IsTrayIconEnabled { get; set; }
-
         [Option(DefaultValue = true)]
         bool IsAutoSelectFirstResult { get; set; }
 
         [Option(DefaultValue = true)]
         bool IsHomeEndNavigateResults { get; set; }
 
-        [Option(DefaultValue = true)]
-        bool IsSearchAsYouType { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsForceCenterAlignment { get; set; }
-
         [Option(DefaultValue = false)]
         bool IsDoubleClickToOpen { get; set; }
 
         [Option(DefaultValue = false)]
-        bool ForceWin10Theme { get; set; }
+        bool IsAutoStartEverything { get; set; }
 
-        [Option(DefaultValue = "")]
-        string ThemeOverride { get; set; }
-
-        [Option(DefaultValue = "")]
-        string VersionBeforeUpdate { get; set; }
-
-        [Option(DefaultValue = "")]
-        string UILanguage { get; set; }
-
-        // From multi-selection branch
         [Option(DefaultValue = false)]
         bool IsSelectionModeEnabled { get; set; }
 
-        // From auto-start branch
-        [Option(DefaultValue = false)]
-        bool IsAutoStartEverything { get; set; }
+        [Option(DefaultValue = FocusBehavior.Repeat)]
+        FocusBehavior ListFocusBehavior { get; set; }
 
-        // From custom shortcuts branch
-        [Option(DefaultValue = true)]
-        bool FocusSearchOnTyping { get; set; }
+        [Option(DefaultValue = "")]
+        string VersionBeforeUpdate { get; set; }
+        #endregion
+
+        #region Shortcuts
+        [Option(DefaultValue = 9)]
+        int ShortcutModifiers { get; set; }
+
+        [Option(DefaultValue = 62)]
+        int ShortcutKey { get; set; }
 
         // Local shortcut bindings stored as "Key,Modifiers" strings
         [Option(DefaultValue = "83,2")]   // Enter, None
@@ -191,6 +198,7 @@ namespace EverythingToolbar
 
         [Option(DefaultValue = "49,2")]   // F (49), Ctrl (2)
         string LocalShortcutFocusSearch { get; set; }
+        #endregion
     }
 
     public sealed class ToolbarSettingsWrapper(IToolbarSettings settings) : INotifyPropertyChanged
@@ -290,6 +298,19 @@ namespace EverythingToolbar
                 if (settings.IsMatchWholeWord != value)
                 {
                     settings.IsMatchWholeWord = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool FocusSearchOnTyping
+        {
+            get => settings.FocusSearchOnTyping;
+            set
+            {
+                if (settings.FocusSearchOnTyping != value)
+                {
+                    settings.FocusSearchOnTyping = value;
                     OnPropertyChanged();
                 }
             }
@@ -485,6 +506,19 @@ namespace EverythingToolbar
                 if (settings.IsShowQuickToggles != value)
                 {
                     settings.IsShowQuickToggles = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsShowIcons
+        {
+            get => settings.IsShowIcons;
+            set
+            {
+                if (settings.IsShowIcons != value)
+                {
+                    settings.IsShowIcons = value;
                     OnPropertyChanged();
                 }
             }
@@ -773,7 +807,6 @@ namespace EverythingToolbar
             }
         }
 
-        // From auto-start branch
         public bool IsAutoStartEverything
         {
             get => settings.IsAutoStartEverything;
@@ -787,7 +820,6 @@ namespace EverythingToolbar
             }
         }
 
-        // From multi-selection branch
         public bool IsSelectionModeEnabled
         {
             get => settings.IsSelectionModeEnabled;
@@ -796,20 +828,6 @@ namespace EverythingToolbar
                 if (settings.IsSelectionModeEnabled != value)
                 {
                     settings.IsSelectionModeEnabled = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        // From custom shortcuts branch
-        public bool FocusSearchOnTyping
-        {
-            get => settings.FocusSearchOnTyping;
-            set
-            {
-                if (settings.FocusSearchOnTyping != value)
-                {
-                    settings.FocusSearchOnTyping = value;
                     OnPropertyChanged();
                 }
             }

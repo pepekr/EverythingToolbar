@@ -213,6 +213,9 @@ namespace EverythingToolbar.Search
                     SearchTerm = "";
                     OnPropertyChanged(nameof(SearchTerm));
                     break;
+                case nameof(ToolbarSettings.User.IsShowIcons):
+                    OnPropertyChanged(nameof(SearchTerm));
+                    break;
             }
         }
 
