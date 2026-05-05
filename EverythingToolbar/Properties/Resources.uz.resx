@@ -706,3 +706,7 @@
     <value>Import qilish</value>
   </data>
 </root>
+  <data name="ContextMenuDeletePermanently" xml:space="preserve">
+    <value>Delete Permanently</value>
+  </data>
+</root>

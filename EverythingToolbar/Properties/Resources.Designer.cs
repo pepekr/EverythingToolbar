@@ -223,6 +223,24 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Permanently.
+        /// </summary>
+        public static string ContextMenuDeletePermanently {
+            get {
+                return ResourceManager.GetString("ContextMenuDeletePermanently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete to Recycle Bin.
+        /// </summary>
+        public static string ContextMenuDeleteRecycleBin {
+            get {
+                return ResourceManager.GetString("ContextMenuDeleteRecycleBin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string ContextMenuOpen {
@@ -291,6 +309,15 @@ namespace EverythingToolbar.Properties {
         public static string ContextMenuProperties {
             get {
                 return ResourceManager.GetString("ContextMenuProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string ContextMenuRename {
+            get {
+                return ResourceManager.GetString("ContextMenuRename", resourceCulture);
             }
         }
         
@@ -394,6 +421,15 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied. You don&apos;t have permission to delete this file..
+        /// </summary>
+        public static string DeleteAccessDenied {
+            get {
+                return ResourceManager.GetString("DeleteAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clamp.
         /// </summary>
         public static string FocusBehaviorClamp {
@@ -493,6 +529,15 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string MessageBoxCancel {
+            get {
+                return ResourceManager.GetString("MessageBoxCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to copy the exception content to clipboard?.
         /// </summary>
         public static string MessageBoxCopyException {
@@ -507,6 +552,24 @@ namespace EverythingToolbar.Properties {
         public static string MessageBoxCustomActionsNameEmpty {
             get {
                 return ResourceManager.GetString("MessageBoxCustomActionsNameEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to permanently delete &quot;{0}&quot;? This cannot be undone..
+        /// </summary>
+        public static string MessageBoxDeletePermanentlyConfirm {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletePermanentlyConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to permanently delete {0} items? This cannot be undone..
+        /// </summary>
+        public static string MessageBoxDeletePermanentlyConfirmMultiple {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletePermanentlyConfirmMultiple", resourceCulture);
             }
         }
         
@@ -534,6 +597,24 @@ namespace EverythingToolbar.Properties {
         public static string MessageBoxFailedToCopyPath {
             get {
                 return ResourceManager.GetString("MessageBoxFailedToCopyPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to cut file..
+        /// </summary>
+        public static string MessageBoxFailedToCutFile {
+            get {
+                return ResourceManager.GetString("MessageBoxFailedToCutFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete file..
+        /// </summary>
+        public static string MessageBoxFailedToDeleteFile {
+            get {
+                return ResourceManager.GetString("MessageBoxFailedToDeleteFile", resourceCulture);
             }
         }
         
@@ -570,6 +651,15 @@ namespace EverythingToolbar.Properties {
         public static string MessageBoxFailedToRegisterHotkey {
             get {
                 return ResourceManager.GetString("MessageBoxFailedToRegisterHotkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to rename file..
+        /// </summary>
+        public static string MessageBoxFailedToRenameFile {
+            get {
+                return ResourceManager.GetString("MessageBoxFailedToRenameFile", resourceCulture);
             }
         }
         
@@ -637,6 +727,19 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can only rename one item at a time..
+        /// </summary>
+        public static string MessageBoxRenameSingleItemOnly {
+            get {
+                return ResourceManager.GetString("MessageBoxRenameSingleItemOnly", resourceCulture);
+            }
+        }
+        
+     
+        
+  
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select Everything.exe....
         /// </summary>
         public static string MessageBoxSelectEverythingExe {
@@ -673,6 +776,15 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string MessageBoxWarningTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxWarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string PreviewPaneFilePath {
@@ -696,6 +808,51 @@ namespace EverythingToolbar.Properties {
         public static string PreviewPaneSize {
             get {
                 return ResourceManager.GetString("PreviewPaneSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied. You don&apos;t have permission to rename this file..
+        /// </summary>
+        public static string RenameAccessDenied {
+            get {
+                return ResourceManager.GetString("RenameAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new name for &quot;{0}&quot;:.
+        /// </summary>
+        public static string RenameDialogPrompt {
+            get {
+                return ResourceManager.GetString("RenameDialogPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename Item.
+        /// </summary>
+        public static string RenameDialogTitle {
+            get {
+                return ResourceManager.GetString("RenameDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A file or folder with this name already exists..
+        /// </summary>
+        public static string RenameFileAlreadyExists {
+            get {
+                return ResourceManager.GetString("RenameFileAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file name contains invalid characters..
+        /// </summary>
+        public static string RenameInvalidFileName {
+            get {
+                return ResourceManager.GetString("RenameInvalidFileName", resourceCulture);
             }
         }
         
