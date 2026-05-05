@@ -20,7 +20,7 @@ using Peter;
 using Clipboard = System.Windows.Clipboard;
 using DataObject = System.Windows.DataObject;
 using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
-
+using System.Linq;
 namespace EverythingToolbar.Data
 {
     public class SearchResult : INotifyPropertyChanged

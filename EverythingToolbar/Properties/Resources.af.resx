@@ -705,12 +705,11 @@
   <data name="ConfigImportButton" xml:space="preserve">
     <value>Invoer</value>
   </data>
-</root>
-  <data name="ContextMenuDeletePermanently" xml:space="preserve">
+	<data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MessageBoxFailedToCutFile" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
+	<assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+	<data name="MessageBoxFailedToCutFile" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
 </root>

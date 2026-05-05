@@ -680,9 +680,7 @@
   </data>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
-  </data>
-</root>
-  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+  </data><data name="SettingsUseSystemLanguage" xml:space="preserve">
     <value>Brug systemsprog</value>
   </data>
   <data name="MessageBoxRestartTitle" xml:space="preserve">
@@ -709,4 +707,6 @@
   <data name="ConfigImportButton" xml:space="preserve">
     <value>Importer</value>
   </data>
+
 </root>
+  

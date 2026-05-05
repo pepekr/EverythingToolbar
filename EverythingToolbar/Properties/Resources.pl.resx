@@ -705,8 +705,9 @@
   <data name="ConfigImportButton" xml:space="preserve">
     <value>Importuj</value>
   </data>
-</root>
-  <data name="ContextMenuDeletePermanently" xml:space="preserve">
+	<data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>
+
+
 </root>

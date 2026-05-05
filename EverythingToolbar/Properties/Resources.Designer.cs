@@ -709,6 +709,15 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can only rename one item at a time..
+        /// </summary>
+        public static string MessageBoxRenameSingleItemOnly {
+            get {
+                return ResourceManager.GetString("MessageBoxRenameSingleItemOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A restart is required for the language changes to take effect. Do you want to restart now?.
         /// </summary>
         public static string MessageBoxRestartMessage {
@@ -725,19 +734,6 @@ namespace EverythingToolbar.Properties {
                 return ResourceManager.GetString("MessageBoxRestartTitle", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can only rename one item at a time..
-        /// </summary>
-        public static string MessageBoxRenameSingleItemOnly {
-            get {
-                return ResourceManager.GetString("MessageBoxRenameSingleItemOnly", resourceCulture);
-            }
-        }
-        
-     
-        
-  
         
         /// <summary>
         ///   Looks up a localized string similar to Please select Everything.exe....
@@ -882,16 +878,7 @@ namespace EverythingToolbar.Properties {
                 return ResourceManager.GetString("SettingsAdvanced", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Statistics.
-        /// </summary>
-        public static string SettingsStatistics {
-            get {
-                return ResourceManager.GetString("SettingsStatistics", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Disable UI animations for improved performance.
         /// </summary>
@@ -949,7 +936,7 @@ namespace EverythingToolbar.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Custom Actions.
         /// </summary>
-          public static string SettingsCustomActions {
+        public static string SettingsCustomActions {
             get {
                 return ResourceManager.GetString("SettingsCustomActions", resourceCulture);
             }
@@ -1501,6 +1488,15 @@ namespace EverythingToolbar.Properties {
         public static string SettingsSortBy {
             get {
                 return ResourceManager.GetString("SettingsSortBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics.
+        /// </summary>
+        public static string SettingsStatistics {
+            get {
+                return ResourceManager.GetString("SettingsStatistics", resourceCulture);
             }
         }
         
