@@ -882,7 +882,16 @@ namespace EverythingToolbar.Properties {
                 return ResourceManager.GetString("SettingsAdvanced", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics.
+        /// </summary>
+        public static string SettingsStatistics {
+            get {
+                return ResourceManager.GetString("SettingsStatistics", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Disable UI animations for improved performance.
         /// </summary>
@@ -940,7 +949,7 @@ namespace EverythingToolbar.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Custom Actions.
         /// </summary>
-        public static string SettingsCustomActions {
+          public static string SettingsCustomActions {
             get {
                 return ResourceManager.GetString("SettingsCustomActions", resourceCulture);
             }

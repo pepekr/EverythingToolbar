@@ -445,7 +445,7 @@ namespace EverythingToolbar.Search
             if (name != string.Empty)
                 Logger.Info("Setting Everything instance name: " + name);
 
-            Everything_SetInstanceName(name);
+             Everything_SetInstanceName(name);
         }
 
         [Flags]

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using EverythingToolbar.Search;
 using EverythingToolbar.Settings;
+using EverythingToolbar.Statistics;
 
 namespace EverythingToolbar.Controls
 {
@@ -19,8 +20,13 @@ namespace EverythingToolbar.Controls
         private void OpenSettingsWindow(object sender, RoutedEventArgs e)
         {
             SearchWindow.Instance.Hide();
-            Window settings = new SettingsWindow();
-            settings.Show();
+            new SettingsWindow().Show();
+        }
+
+        private void OpenStatisticsPage(object sender, RoutedEventArgs e)
+        {
+            SearchWindow.Instance.Hide();
+            new SettingsWindow(typeof(StatisticsPage)).Show();
         }
 
         private void OnSortByClicked(object sender, RoutedEventArgs e)

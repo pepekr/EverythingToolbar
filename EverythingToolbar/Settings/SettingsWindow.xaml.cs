@@ -9,12 +9,12 @@ namespace EverythingToolbar.Settings
 {
     public partial class SettingsWindow
     {
-        public SettingsWindow()
+        public SettingsWindow(Type? initialPage = null)
         {
             InitializeComponent();
 
-            // Default navigation to the 'About' (Home) page when the window loads
-            Loaded += (_, _) => Dispatcher.BeginInvoke(() => ThisNavigationView.Navigate(typeof(About)));
+            Loaded += (_, _) => Dispatcher.BeginInvoke(() =>
+                ThisNavigationView.Navigate(initialPage ?? typeof(About)));
         }
 
         // Handles the Navigation View's Back Button
