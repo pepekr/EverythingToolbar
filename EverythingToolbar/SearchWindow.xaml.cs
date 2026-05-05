@@ -34,7 +34,53 @@ namespace EverythingToolbar
 
             EventDispatcher.Instance.InvokeFocusRequested(this, EventArgs.Empty);
         }
+        private async void EnsureEverythingIsRunning()
+        {
+            // 1. Check if the user actually wants this feature turned on
+            if (!ToolbarSettings.User.IsAutoStartEverything)
+                return;
 
+            // 2. Check if it's already running
+            var processes = System.Diagnostics.Process.GetProcessesByName("Everything");
+            if (processes.Length == 0)
+            {
+                try
+                {
+                    string everythingPath = ToolbarSettings.User.EverythingPath;
+
+                    if (!System.IO.File.Exists(everythingPath))
+                    {
+                        System.Windows.MessageBox.Show(
+                            $"Auto-Start Failed!\nCould not find Everything.exe at:\n{everythingPath}\n\nPlease update your path in Settings -> Search.",
+                            "EverythingToolbar Debug");
+                        return;
+                    }
+
+                    // Launch Everything in the background
+                    var startInfo = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = everythingPath,
+                        Arguments = "-startup",
+                        UseShellExecute = true
+                    };
+                    System.Diagnostics.Process.Start(startInfo);
+
+                    // Show the "Starting the engine..." UI
+                    StartingEngineOverlay.Visibility = Visibility.Visible;
+
+                    // Keep the UI up for 2.5 seconds
+                    await System.Threading.Tasks.Task.Delay(2500);
+
+                    // Hide the UI 
+                    StartingEngineOverlay.Visibility = Visibility.Collapsed;
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Launch failed: {ex.Message}");
+                    StartingEngineOverlay.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
         private void OnPreviewKeyDown(object? sender, KeyEventArgs e)
         {
             var filterSettings = ToolbarSettings.User.LocalShortcutFilterRange;
@@ -142,6 +188,7 @@ namespace EverythingToolbar
 
         public new void Show()
         {
+            EnsureEverythingIsRunning();
             var activate = TaskbarStateManager.Instance.IsIcon;
 
             if (Visibility == Visibility.Visible)
@@ -205,6 +252,7 @@ namespace EverythingToolbar
 
         public void AnimateShow(double left, double top, double width, double height, Edge taskbarEdge)
         {
+            EnsureEverythingIsRunning();
             // Clearing all animations allows us to set the corresponding properties again
             ClearAnimations();
 

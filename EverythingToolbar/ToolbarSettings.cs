@@ -143,6 +143,10 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsSelectionModeEnabled { get; set; }
 
+        // From auto-start branch
+        [Option(DefaultValue = false)]
+        bool IsAutoStartEverything { get; set; }
+
         // From custom shortcuts branch
         [Option(DefaultValue = true)]
         bool FocusSearchOnTyping { get; set; }
@@ -764,6 +768,20 @@ namespace EverythingToolbar
                 if (settings.UILanguage != value)
                 {
                     settings.UILanguage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        // From auto-start branch
+        public bool IsAutoStartEverything
+        {
+            get => settings.IsAutoStartEverything;
+            set
+            {
+                if (settings.IsAutoStartEverything != value)
+                {
+                    settings.IsAutoStartEverything = value;
                     OnPropertyChanged();
                 }
             }
