@@ -47,6 +47,12 @@ namespace EverythingToolbar.Controls
         }
 
         private SearchResult? SelectedItem => SelectedSearchResult;
+
+        private IEnumerable<SearchResult> GetSelectedItems()
+        {
+            return SearchResultsListView.SelectedItems.Cast<SearchResult>();
+        }
+
         private const int PageSize = 256;
         private Point _dragStart;
         private bool _isScrollBarDragging;
@@ -246,8 +252,9 @@ namespace EverythingToolbar.Controls
             }
             else if (s.LocalShortcutOpenInEverything.Matches(e))
             {
-                if (SelectedItem == null) return;
-                SearchResultProvider.OpenSearchInEverything(SearchState.Instance, SelectedItem.FullPathAndFileName);
+                var first = GetSelectedItems().FirstOrDefault();
+                if (first == null) return;
+                SearchResultProvider.OpenSearchInEverything(SearchState.Instance, first.FullPathAndFileName);
                 SearchResultsListView.SelectedIndex = -1;
             }
             else if (s.LocalShortcutOpenPath.Matches(e))
@@ -274,12 +281,15 @@ namespace EverythingToolbar.Controls
             }
             else if (s.LocalShortcutCopyPath.Matches(e))
             {
-                SelectedItem?.CopyPathToClipboard();
+                var paths = string.Join(Environment.NewLine, GetSelectedItems().Select(i => i.FullPathAndFileName));
+                if (!string.IsNullOrEmpty(paths)) Clipboard.SetText(paths);
             }
             else if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 // Keep Ctrl+C for copy file non-configurable (standard behavior)
-                SelectedItem?.CopyToClipboard();
+                var paths = new StringCollection();
+                foreach (var item in GetSelectedItems()) paths.Add(item.FullPathAndFileName);
+                if (paths.Count > 0) Clipboard.SetFileDropList(paths);
             }
             else if (s.LocalShortcutNavigateUp.Matches(e))
             {
@@ -320,6 +330,7 @@ namespace EverythingToolbar.Controls
                     SearchState.Instance.SelectFilterFromIndex(filterIndex);
             }
         }
+
         private static bool KeepSearchBoxFocused =>
             ToolbarSettings.User.IsAutoSelectFirstResult && ToolbarSettings.User.IsSearchAsYouType;
 
@@ -361,7 +372,6 @@ namespace EverythingToolbar.Controls
 
         private void JumpToEnd()
         {
-            // Capture focus before calling Focus() on the ListView so we can restore it afterwards.
             var originalFocus = Keyboard.FocusedElement;
             SearchResultsListView.Focus();
             ForwardKeyPressToControl(SearchResultsListView, Key.End, originalFocus, restoreFocus: KeepSearchBoxFocused);
@@ -437,7 +447,6 @@ namespace EverythingToolbar.Controls
             if (presentationSource == null)
                 return false;
 
-            // Capture focus state before raising the event
             originalFocus ??= Keyboard.FocusedElement;
             var caretIndex = originalFocus is TextBox textBox ? textBox.CaretIndex : -1;
 
@@ -447,7 +456,6 @@ namespace EverythingToolbar.Controls
             };
             control.RaiseEvent(args);
 
-            // Restore focus to SearchBox if requested and it was previously focused
             if (restoreFocus && originalFocus is TextBox restoredTextBox && caretIndex >= 0)
             {
                 Dispatcher.BeginInvoke(
@@ -467,51 +475,68 @@ namespace EverythingToolbar.Controls
 
         private void OpenSelectedSearchResult()
         {
-            if (SelectedItem == null)
-                return;
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0) return;
 
-            if (!CustomActions.HandleAction(SelectedItem))
-                SelectedItem?.Open();
-
+            foreach (var item in items)
+            {
+                if (!CustomActions.HandleAction(item))
+                    item.Open();
+            }
             SearchWindow.Instance.Hide();
         }
 
         private void OpenFilePath(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.OpenPath();
+            foreach (var item in GetSelectedItems())
+                item.OpenPath();
             SearchWindow.Instance.Hide();
         }
 
         private void PreviewSelectedFile()
         {
-            SelectedItem?.PreviewInQuickLook();
-            SelectedItem?.PreviewInSeer();
+            var first = GetSelectedItems().FirstOrDefault();
+            first?.PreviewInQuickLook();
+            first?.PreviewInSeer();
         }
 
         private void CopyPathToClipBoard(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.CopyPathToClipboard();
+            var paths = string.Join(Environment.NewLine, GetSelectedItems().Select(i => i.FullPathAndFileName));
+            if (!string.IsNullOrEmpty(paths))
+                Clipboard.SetText(paths);
         }
 
         private void OpenWith(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.OpenWith();
+            foreach (var item in GetSelectedItems())
+                item.OpenWith();
             SearchWindow.Instance.Hide();
         }
 
         private void ShowInEverything(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.ShowInEverything();
+            foreach (var item in GetSelectedItems())
+                item.ShowInEverything();
             SearchWindow.Instance.Hide();
         }
 
         private void CopyFile(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.CopyToClipboard();
+            var paths = new StringCollection();
+            foreach (var item in GetSelectedItems()) paths.Add(item.FullPathAndFileName);
+            if (paths.Count > 0)
+                Clipboard.SetFileDropList(paths);
         }
 
         private void SingleClickSearchResult(object sender, MouseEventArgs e)
         {
+            if (ToolbarSettings.User.IsSelectionModeEnabled)
+                return;
+
+            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) || Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                return;
+
             if (!ToolbarSettings.User.IsDoubleClickToOpen)
                 OpenWithMouseClick();
         }
@@ -532,15 +557,15 @@ namespace EverythingToolbar.Controls
             switch (Keyboard.Modifiers)
             {
                 case ModifierKeys.Alt:
-                    SelectedItem?.ShowProperties();
+                    foreach (var item in GetSelectedItems()) item.ShowProperties();
                     SearchWindow.Instance.Hide();
                     break;
                 case ModifierKeys.Control:
-                    SelectedItem?.OpenPath();
+                    foreach (var item in GetSelectedItems()) item.OpenPath();
                     SearchWindow.Instance.Hide();
                     break;
                 case ModifierKeys.Shift:
-                    SelectedItem?.ShowInEverything();
+                    foreach (var item in GetSelectedItems()) item.ShowInEverything();
                     SearchWindow.Instance.Hide();
                     break;
                 default:
@@ -552,19 +577,21 @@ namespace EverythingToolbar.Controls
 
         private void RunAsAdmin(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.RunAsAdmin();
+            foreach (var item in GetSelectedItems())
+                item.RunAsAdmin();
             SearchWindow.Instance.Hide();
         }
 
         private void ShowFileProperties(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.ShowProperties();
+            foreach (var item in GetSelectedItems())
+                item.ShowProperties();
             SearchWindow.Instance.Hide();
         }
 
         private void ShowFileWindowsContextMenu(object sender, RoutedEventArgs e)
         {
-            SelectedItem?.ShowWindowsContextMenu();
+            SearchResult.ShowWindowsContextMenu(GetSelectedItems());
         }
 
         private void OnOpenWithMenuLoaded(object sender, RoutedEventArgs e)
@@ -608,12 +635,16 @@ namespace EverythingToolbar.Controls
 
         private void OpenWithCustomAction(object sender, RoutedEventArgs e)
         {
-            if (SelectedItem == null)
-                return;
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0) return;
 
             var menuItem = sender as MenuItem;
             var command = menuItem?.Tag?.ToString() ?? "";
-            CustomActions.HandleAction(SelectedItem, command);
+
+            foreach (var item in items)
+            {
+                CustomActions.HandleAction(item, command);
+            }
         }
 
         private void OnListViewItemMouseDown(object sender, MouseButtonEventArgs e)
@@ -652,7 +683,8 @@ namespace EverythingToolbar.Controls
 
         private bool TryStartDragDrop(Point currentPosition)
         {
-            if (SelectedItem == null)
+            var items = GetSelectedItems().ToList();
+            if (items.Count == 0)
                 return false;
 
             var diff = _dragStart - currentPosition;
@@ -663,9 +695,9 @@ namespace EverythingToolbar.Controls
             )
                 return false;
 
-            string[] files = [SelectedItem.FullPathAndFileName];
+            string[] files = items.Select(i => i.FullPathAndFileName).ToArray();
             var data = new DataObject(DataFormats.FileDrop, files);
-            data.SetData(DataFormats.Text, files[0]);
+            data.SetData(DataFormats.Text, string.Join(Environment.NewLine, files));
             DragDrop.DoDragDrop(SearchResultsListView, data, DragDropEffects.All);
             return true;
         }
@@ -677,7 +709,7 @@ namespace EverythingToolbar.Controls
 
             if (Keyboard.Modifiers == ModifierKeys.Shift)
             {
-                SelectedItem.ShowWindowsContextMenu();
+                SearchResult.ShowWindowsContextMenu(GetSelectedItems());
                 e.Handled = true;
             }
         }
