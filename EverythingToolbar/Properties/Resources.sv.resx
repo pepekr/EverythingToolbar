@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Visa</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Välj gränssnittsspråk. Starta om programmet för att tillämpa ändringarna.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attribut</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Använd systemspråk</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Omstart krävs</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>En omstart krävs för att språkäändringarna ska träda i kraft. Vill du starta om nu?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Visa ikoner</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Visa filikoner (om avstängd - minskar söktiden)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Säkerhetskopiera / Återställ</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Exportera eller importera alla dina inställningar, regler, genvägar etc.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>Importera</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>תצוגה</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>בחר את שפת ממשק המשתמש. הפעל מחדש את היישום כדי להחיל את השינויים.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>תכונות</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>השתמש בשפת המערכת</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>נדרשת הפעלה מחדש</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>נדרשת הפעלה מחדש כדי ששינויי השפה ייכנסו לתוקף. האם ברצונך להפעיל מחדש כעת?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>הצג סמלים</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>הצג סמלי קבצים (אם כבוי - מקטין את זמן החיפוש)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>גיבוי / שחזור</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>ייצא או ייבא את כל ההגדרות, הכללים, קיצורי הדרך וכו'.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>ייצוא</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>ייבוא</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Trieu l'idioma de la interfície. Reinicieu l'aplicació per aplicar els canvis.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Utilitza l'idioma del sistema</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Cal reiniciar</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Cal reiniciar perquè els canvis d'idioma tinguin efecte. Voleu reiniciar ara?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Mostra les icones</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Mostra les icones dels fitxers (si es desactiva, es redueix el temps de cerca)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Còpia de seguretat / Restaurar</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Exporteu o importeu tota la configuració, regles, dreceres, etc.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>Importar</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Config.Net;
 using EverythingToolbar.Data;
 using EverythingToolbar.Helpers;
@@ -9,44 +10,24 @@ namespace EverythingToolbar
 {
     public interface IToolbarSettings
     {
+        #region Search & Filtering
         [Option(DefaultValue = false)]
         bool IsMatchCase { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsRegExEnabled { get; set; }
 
-        [Option(DefaultValue = FocusBehavior.Repeat)]
-        FocusBehavior ListFocusBehavior { get; set; }
-
         [Option(DefaultValue = false)]
         bool IsMatchPath { get; set; }
-
-        [Option(DefaultValue = 1)]
-        int SortBy { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsSortDescending { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsMatchWholeWord { get; set; }
 
-        [Option(DefaultValue = 700)]
-        int PopupHeight { get; set; }
+        [Option(DefaultValue = true)]
+        bool IsSearchAsYouType { get; set; }
 
-        [Option(DefaultValue = 700)]
-        int PopupWidth { get; set; }
-
-        [Option(DefaultValue = "C:\\Program Files\\Everything\\Everything.exe")]
-        string EverythingPath { get; set; }
-
-        [Option(DefaultValue = "Normal")]
-        string ItemTemplate { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsAutoApplyCustomActions { get; set; }
-
-        [Option(DefaultValue = 3)]
-        int MaxTabItems { get; set; }
+        [Option(DefaultValue = true)]
+        bool FocusSearchOnTyping { get; set; }
 
         [Option(DefaultValue = "")]
         string FilterOrder { get; set; }
@@ -57,11 +38,25 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsImportFilters { get; set; }
 
-        [Option(DefaultValue = 9)]
-        int ShortcutModifiers { get; set; }
+        [Option(DefaultValue = false)]
+        bool IsRememberFilter { get; set; }
 
-        [Option(DefaultValue = 62)]
-        int ShortcutKey { get; set; }
+        [Option(DefaultValue = "")]
+        string LastFilter { get; set; }
+        #endregion
+
+        #region UI & Appearance
+        [Option(DefaultValue = 700)]
+        int PopupHeight { get; set; }
+
+        [Option(DefaultValue = 700)]
+        int PopupWidth { get; set; }
+
+        [Option(DefaultValue = "Normal")]
+        string ItemTemplate { get; set; }
+
+        [Option(DefaultValue = 3)]
+        int MaxTabItems { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsAnimationsDisabled { get; set; }
@@ -75,17 +70,8 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsShowQuickToggles { get; set; }
 
-        [Option(DefaultValue = false)]
-        bool IsEnableHistory { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsReplaceStartMenuSearch { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsRememberFilter { get; set; }
-
-        [Option(DefaultValue = "")]
-        string LastFilter { get; set; }
+        [Option(DefaultValue = true)]
+        bool IsShowIcons { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsThumbnailsEnabled { get; set; }
@@ -93,11 +79,46 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsPreviewPaneEnabled { get; set; }
 
+        [Option(DefaultValue = false)]
+        bool IsForceCenterAlignment { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool ForceWin10Theme { get; set; }
+
         [Option(DefaultValue = "")]
-        string InstanceName { get; set; }
+        string ThemeOverride { get; set; }
+
+        [Option(DefaultValue = "")]
+        string UILanguage { get; set; }
 
         [Option(DefaultValue = "")]
         string IconName { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsTrayIconEnabled { get; set; }
+        #endregion
+
+        #region Application Behavior & Integration
+        [Option(DefaultValue = 1)]
+        int SortBy { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsSortDescending { get; set; }
+
+        [Option(DefaultValue = "C:\\Program Files\\Everything\\Everything.exe")]
+        string EverythingPath { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsAutoApplyCustomActions { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsEnableHistory { get; set; }
+
+        [Option(DefaultValue = false)]
+        bool IsReplaceStartMenuSearch { get; set; }
+
+        [Option(DefaultValue = "")]
+        string InstanceName { get; set; }
 
         [Option(DefaultValue = "0")]
         string SkippedUpdate { get; set; }
@@ -108,38 +129,76 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsSetupAssistantDisabled { get; set; }
 
-        [Option(DefaultValue = false)]
-        bool IsTrayIconEnabled { get; set; }
-
         [Option(DefaultValue = true)]
         bool IsAutoSelectFirstResult { get; set; }
 
         [Option(DefaultValue = true)]
         bool IsHomeEndNavigateResults { get; set; }
 
-        [Option(DefaultValue = true)]
-        bool IsSearchAsYouType { get; set; }
-
-        [Option(DefaultValue = false)]
-        bool IsForceCenterAlignment { get; set; }
-
         [Option(DefaultValue = false)]
         bool IsDoubleClickToOpen { get; set; }
 
         [Option(DefaultValue = false)]
-        bool ForceWin10Theme { get; set; }
-
-        [Option(DefaultValue = "")]
-        string ThemeOverride { get; set; }
-
-        [Option(DefaultValue = "")]
-        string VersionBeforeUpdate { get; set; }
-
-        [Option(DefaultValue = "")]
-        string UILanguage { get; set; }
+        bool IsAutoStartEverything { get; set; }
 
         [Option(DefaultValue = false)]
         bool IsSelectionModeEnabled { get; set; }
+
+        [Option(DefaultValue = FocusBehavior.Repeat)]
+        FocusBehavior ListFocusBehavior { get; set; }
+
+        [Option(DefaultValue = "")]
+        string VersionBeforeUpdate { get; set; }
+        #endregion
+
+        #region Shortcuts
+        [Option(DefaultValue = 9)]
+        int ShortcutModifiers { get; set; }
+
+        [Option(DefaultValue = 62)]
+        int ShortcutKey { get; set; }
+
+        // Local shortcut bindings stored as "Key,Modifiers" strings
+        [Option(DefaultValue = "83,2")]   // Enter, None
+        string LocalShortcutOpen { get; set; }
+
+        [Option(DefaultValue = "83,2")]   // Enter, Ctrl
+        string LocalShortcutOpenPath { get; set; }
+
+        [Option(DefaultValue = "83,6")]   // Enter, Ctrl+Shift
+        string LocalShortcutRunAsAdmin { get; set; }
+
+        [Option(DefaultValue = "83,4")]   // Enter, Shift
+        string LocalShortcutOpenInEverything { get; set; }
+
+        [Option(DefaultValue = "83,1")]   // Enter, Alt
+        string LocalShortcutProperties { get; set; }
+
+        [Option(DefaultValue = "46,6")]   // C, Ctrl+Shift
+        string LocalShortcutCopyPath { get; set; }
+
+        [Option(DefaultValue = "18,0")]   // Space, None
+        string LocalShortcutPreview { get; set; }
+
+        [Option(DefaultValue = "9,0")]    // Tab, None
+        string LocalShortcutCycleNext { get; set; }
+
+        [Option(DefaultValue = "9,4")]    // Tab, Shift
+        string LocalShortcutCyclePrev { get; set; }
+
+        [Option(DefaultValue = "230,0")]  // Up, None
+        string LocalShortcutNavigateUp { get; set; }
+
+        [Option(DefaultValue = "231,0")]  // Down, None
+        string LocalShortcutNavigateDown { get; set; }
+
+        // Filter range: "StartKey,Modifiers,Count"
+        [Option(DefaultValue = "35,2,10")] // D0, Ctrl, 10
+        string LocalShortcutFilterRange { get; set; }
+
+        [Option(DefaultValue = "49,2")]   // F (49), Ctrl (2)
+        string LocalShortcutFocusSearch { get; set; }
+        #endregion
     }
 
     public sealed class ToolbarSettingsWrapper(IToolbarSettings settings) : INotifyPropertyChanged
@@ -150,6 +209,21 @@ namespace EverythingToolbar
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        // Shortcut defaults
+        private static readonly ShortcutBinding DefaultOpen = new(Key.Enter);
+        private static readonly ShortcutBinding DefaultOpenPath = new(Key.Enter, ModifierKeys.Control);
+        private static readonly ShortcutBinding DefaultRunAsAdmin = new(Key.Enter, ModifierKeys.Control | ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultOpenInEverything = new(Key.Enter, ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultProperties = new(Key.Enter, ModifierKeys.Alt);
+        private static readonly ShortcutBinding DefaultCopyPath = new(Key.C, ModifierKeys.Control | ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultPreview = new(Key.Space);
+        private static readonly ShortcutBinding DefaultCycleNext = new(Key.Tab);
+        private static readonly ShortcutBinding DefaultCyclePrev = new(Key.Tab, ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultNavigateUp = new(Key.Up);
+        private static readonly ShortcutBinding DefaultNavigateDown = new(Key.Down);
+        private static readonly ShortcutBinding DefaultFocusSearch = new(Key.F, ModifierKeys.Control);
+        private static readonly FilterRangeBinding DefaultFilterRange = new(Key.D0, ModifierKeys.Control, 10);
 
         public bool IsMatchCase
         {
@@ -224,6 +298,19 @@ namespace EverythingToolbar
                 if (settings.IsMatchWholeWord != value)
                 {
                     settings.IsMatchWholeWord = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool FocusSearchOnTyping
+        {
+            get => settings.FocusSearchOnTyping;
+            set
+            {
+                if (settings.FocusSearchOnTyping != value)
+                {
+                    settings.FocusSearchOnTyping = value;
                     OnPropertyChanged();
                 }
             }
@@ -419,6 +506,19 @@ namespace EverythingToolbar
                 if (settings.IsShowQuickToggles != value)
                 {
                     settings.IsShowQuickToggles = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsShowIcons
+        {
+            get => settings.IsShowIcons;
+            set
+            {
+                if (settings.IsShowIcons != value)
+                {
+                    settings.IsShowIcons = value;
                     OnPropertyChanged();
                 }
             }
@@ -707,6 +807,19 @@ namespace EverythingToolbar
             }
         }
 
+        public bool IsAutoStartEverything
+        {
+            get => settings.IsAutoStartEverything;
+            set
+            {
+                if (settings.IsAutoStartEverything != value)
+                {
+                    settings.IsAutoStartEverything = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool IsSelectionModeEnabled
         {
             get => settings.IsSelectionModeEnabled;
@@ -718,6 +831,84 @@ namespace EverythingToolbar
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public ShortcutBinding LocalShortcutOpen
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutOpen, DefaultOpen);
+            set { settings.LocalShortcutOpen = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutOpenPath
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutOpenPath, DefaultOpenPath);
+            set { settings.LocalShortcutOpenPath = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutRunAsAdmin
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutRunAsAdmin, DefaultRunAsAdmin);
+            set { settings.LocalShortcutRunAsAdmin = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutOpenInEverything
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutOpenInEverything, DefaultOpenInEverything);
+            set { settings.LocalShortcutOpenInEverything = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutProperties
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutProperties, DefaultProperties);
+            set { settings.LocalShortcutProperties = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutCopyPath
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutCopyPath, DefaultCopyPath);
+            set { settings.LocalShortcutCopyPath = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutPreview
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutPreview, DefaultPreview);
+            set { settings.LocalShortcutPreview = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutCycleNext
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutCycleNext, DefaultCycleNext);
+            set { settings.LocalShortcutCycleNext = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutCyclePrev
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutCyclePrev, DefaultCyclePrev);
+            set { settings.LocalShortcutCyclePrev = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutNavigateUp
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutNavigateUp, DefaultNavigateUp);
+            set { settings.LocalShortcutNavigateUp = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutNavigateDown
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutNavigateDown, DefaultNavigateDown);
+            set { settings.LocalShortcutNavigateDown = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutFocusSearch
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutFocusSearch, DefaultFocusSearch);
+            set { settings.LocalShortcutFocusSearch = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public FilterRangeBinding LocalShortcutFilterRange
+        {
+            get => FilterRangeBinding.FromString(settings.LocalShortcutFilterRange, DefaultFilterRange);
+            set { settings.LocalShortcutFilterRange = value.ToString(); OnPropertyChanged(); }
         }
     }
 

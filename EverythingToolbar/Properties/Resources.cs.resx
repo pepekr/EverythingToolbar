@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Zobrazit</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Jazyk</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Vyberte jazyk rozhraní. Pro uplatnění změn restartujte aplikaci.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Atributy</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Použít jazyk systému</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Je vyžadován restart</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Aby se změny jazyka projevily, je nutný restart. Chcete restartovat nyní?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Zobrazit ikony</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Zobrazovat ikony souborů (vypnutí zkracuje dobu vyhledávání)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Zálohovat / Obnovit</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Exportujte nebo importujte všechna svá nastavení, pravidla, zkratky atd.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Exportovat</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>Importovat</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

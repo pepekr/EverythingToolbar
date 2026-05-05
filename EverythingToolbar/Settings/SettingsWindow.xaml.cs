@@ -13,7 +13,16 @@ namespace EverythingToolbar.Settings
         {
             InitializeComponent();
 
+            // Default navigation to the 'About' (Home) page when the window loads
             Loaded += (_, _) => Dispatcher.BeginInvoke(() => ThisNavigationView.Navigate(typeof(About)));
+        }
+
+        // Handles the Navigation View's Back Button
+        private void OnBackRequested(object sender, RoutedEventArgs e)
+        {
+            // Closes the settings window, returning the user to their normal workflow
+            this.Close();
+            EverythingToolbar.SearchWindow.Instance.Show();
         }
 
         private void OnReportABugClicked(object sender, RoutedEventArgs e)

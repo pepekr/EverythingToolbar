@@ -18,19 +18,19 @@
         Height="620"
         Width="1100"
         Title="{x:Static properties:Resources.SettingsPreferences}">
-    
+
     <i:Interaction.Behaviors>
         <behaviors:WpfUiBehavior />
         <behaviors:ThemeAwareness />
     </i:Interaction.Behaviors>
-    
+
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <ui:TitleBar
             Grid.Row="0"
             Title="EverythingToolbar"
@@ -44,7 +44,8 @@
             Name="ThisNavigationView"
             Grid.Row="1"
             MinHeight="300"
-            IsBackButtonVisible="Collapsed"
+            IsBackButtonVisible="Visible"
+            BackRequested="OnBackRequested"
             IsPaneToggleVisible="True"
             PaneTitle="{x:Static properties:Resources.SettingsPreferences}">
             <ui:NavigationView.MenuItems>
@@ -84,6 +85,6 @@
                     Click="OnReportABugClicked"/>
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
-        
+
     </Grid>
 </ui:FluentWindow>

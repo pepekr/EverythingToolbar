@@ -17,6 +17,9 @@ namespace EverythingToolbar.Behaviors
     {
         Dark,
         Light,
+        Solarized,
+        Dracula,
+        OLED
     }
 
     public class ResourcesChangedEventArgs : EventArgs
@@ -94,16 +97,14 @@ namespace EverythingToolbar.Behaviors
             }
         }
 
+        // 1. Dynamically parse the ThemeOverride string
         private Theme GetThemeFromRegistryValue(int registryValue)
         {
-            if (ToolbarSettings.User.ThemeOverride.ToLower() == "light")
-            {
-                return Theme.Light;
-            }
+            var overrideTheme = ToolbarSettings.User.ThemeOverride;
 
-            if (ToolbarSettings.User.ThemeOverride.ToLower() == "dark")
+            if (!string.IsNullOrEmpty(overrideTheme) && Enum.TryParse<Theme>(overrideTheme, true, out var parsedTheme))
             {
-                return Theme.Dark;
+                return parsedTheme;
             }
 
             return registryValue == 1 ? Theme.Light : Theme.Dark;
@@ -137,9 +138,12 @@ namespace EverythingToolbar.Behaviors
             foreach (var file in controlsLocation.GetFiles("*.xaml"))
                 AddResource(file.FullName);
 
-            // Apply color scheme according to Windows theme
-            var themeFileName = theme == Theme.Light ? "Light.xaml" : "Dark.xaml";
-            AddResource(Path.Combine(themeLocation, themeFileName));
+            // 2. Inject the specific theme file dynamically, with a fallback to Dark if missing
+            var themeFileName = $"{theme}.xaml";
+            AddResource(
+                Path.Combine(themeLocation, themeFileName),
+                fallbackPath: Path.Combine(themeLocation, "Dark.xaml")
+            );
 
             // Apply ItemTemplate style
             var dataTemplateLocation = Path.Combine(

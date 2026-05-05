@@ -19,7 +19,7 @@ namespace EverythingToolbar.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -147,6 +147,42 @@ namespace EverythingToolbar.Properties {
         public static string AboutVersion {
             get {
                 return ResourceManager.GetString("AboutVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string ConfigExportButton {
+            get {
+                return ResourceManager.GetString("ConfigExportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string ConfigImportButton {
+            get {
+                return ResourceManager.GetString("ConfigImportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup / Restore.
+        /// </summary>
+        public static string ConfigImportExport {
+            get {
+                return ResourceManager.GetString("ConfigImportExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export or import all your settings, rules, shortcuts etc..
+        /// </summary>
+        public static string ConfigImportExportHelp {
+            get {
+                return ResourceManager.GetString("ConfigImportExportHelp", resourceCulture);
             }
         }
         
@@ -673,15 +709,6 @@ namespace EverythingToolbar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can only rename one item at a time..
-        /// </summary>
-        public static string MessageBoxRenameSingleItemOnly {
-            get {
-                return ResourceManager.GetString("MessageBoxRenameSingleItemOnly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A restart is required for the language changes to take effect. Do you want to restart now?.
         /// </summary>
         public static string MessageBoxRestartMessage {
@@ -698,6 +725,19 @@ namespace EverythingToolbar.Properties {
                 return ResourceManager.GetString("MessageBoxRestartTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only rename one item at a time..
+        /// </summary>
+        public static string MessageBoxRenameSingleItemOnly {
+            get {
+                return ResourceManager.GetString("MessageBoxRenameSingleItemOnly", resourceCulture);
+            }
+        }
+        
+     
+        
+  
         
         /// <summary>
         ///   Looks up a localized string similar to Please select Everything.exe....
@@ -1407,6 +1447,24 @@ namespace EverythingToolbar.Properties {
         public static string SettingsShortcuts {
             get {
                 return ResourceManager.GetString("SettingsShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show icons.
+        /// </summary>
+        public static string SettingsShowIcons {
+            get {
+                return ResourceManager.GetString("SettingsShowIcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show icons of files (if turned off - reduces search time).
+        /// </summary>
+        public static string SettingsShowIconsHelp {
+            get {
+                return ResourceManager.GetString("SettingsShowIconsHelp", resourceCulture);
             }
         }
         

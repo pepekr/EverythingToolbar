@@ -7,9 +7,10 @@ namespace EverythingToolbar.Helpers
 {
     internal abstract class ShellUtils
     {
+        private const string Shell32Dll = "shell32.dll";
         private ShellUtils() { }
 
-        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+        [DllImport(Shell32Dll, CharSet = CharSet.Auto)]
         private static extern bool ShellExecuteEx(ref ShellExecuteInfo lpExecInfo);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
@@ -119,12 +120,12 @@ namespace EverythingToolbar.Helpers
 
         public static void OpenWithDialog(string path)
         {
-            var args = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shell32.dll");
+            var args = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), Shell32Dll);
             args += ",OpenAs_RunDLL " + path;
             Process.Start("rundll32.exe", args);
         }
 
-        [DllImport("shell32.dll", SetLastError = true)]
+        [DllImport(Shell32Dll, SetLastError = true)]
         private static extern int SHOpenFolderAndSelectItems(
             IntPtr pidlFolder,
             uint cidl,
@@ -132,7 +133,7 @@ namespace EverythingToolbar.Helpers
             uint dwFlags
         );
 
-        [DllImport("shell32.dll", SetLastError = true)]
+        [DllImport(Shell32Dll, SetLastError = true)]
         private static extern void SHParseDisplayName(
             [MarshalAs(UnmanagedType.LPWStr)] string name,
             IntPtr bindingContext,

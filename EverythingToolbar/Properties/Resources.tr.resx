@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>Göster</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Arayüz dilini seçin. Değişiklikleri uygulamak için uygulamayı yeniden başlatın.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Özellikler</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Sistem Dilini Kullan</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Yeniden başlatma gerekiyor</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Dil değişikliklerinin etkili olması için yeniden başlatma gerekiyor. Şimdi yeniden başlatmak istiyor musunuz?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Simgeleri göster</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Dosya simgelerini göster (kapatılırsa arama süresini azaltır)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Yedekle / Geri Yükle</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Tüm ayarlarınızı, kurallarınızı, kısayollarınızı vb. dışa veya içe aktarın.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Dışa Aktar</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>İçe Aktar</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

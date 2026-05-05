@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Језик</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Изаберите језик интерфејса. Поново покрените апликацију да бисте применили промене.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Користи језик система</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Потребно је поновно покретање</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>Потребно је поновно покретање да би промене језика ступиле на снагу. Да ли желите да поново покренете сада?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Прикажи иконе</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Прикажи иконе датотека (ако је искључено - смањује време претраге)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Резервна копија / Враћање</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Извезите или увезите сва своја подешавања, правила, пречице итд.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Извоз</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>Увоз</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

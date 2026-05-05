@@ -97,8 +97,8 @@ namespace EverythingToolbar.Controls
                     && ToolbarSettings.User.IsHomeEndNavigateResults
                 || e.Key == Key.PageDown
                 || e.Key == Key.PageUp
-                || e.Key == Key.Up
-                || e.Key == Key.Down
+                || e.Key == ToolbarSettings.User.LocalShortcutNavigateUp.Key
+                || e.Key == ToolbarSettings.User.LocalShortcutNavigateDown.Key
                 || e.Key == Key.Escape
                 || e.Key == Key.Enter
                 || e.SystemKey == Key.Enter // When Alt is held
@@ -111,19 +111,24 @@ namespace EverythingToolbar.Controls
                 EventDispatcher.Instance.InvokeGlobalKeyEvent(this, e);
                 e.Handled = true;
             }
-            else if (e.Key == Key.Tab)
+            else if (e.Key == ToolbarSettings.User.LocalShortcutCycleNext.Key
+                    || e.Key == ToolbarSettings.User.LocalShortcutCyclePrev.Key)
             {
-                // The down stroke of the Tab key is not always consistent. Therefore it's handled by the up stroke event.
                 e.Handled = true;
             }
         }
 
         private void OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Tab)
+            var s = ToolbarSettings.User;
+            if (s.LocalShortcutCycleNext.Matches(e))
             {
-                var offset = Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) ? -1 : 1;
-                SearchState.Instance.CycleFilters(offset);
+                SearchState.Instance.CycleFilters(1);
+                e.Handled = true;
+            }
+            else if (s.LocalShortcutCyclePrev.Matches(e))
+            {
+                SearchState.Instance.CycleFilters(-1);
                 e.Handled = true;
             }
         }

@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>كۆرۈنۈش</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>تىل</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>كۆرۈنمە يۈز تىلىنى تاللاڭ. ئۆزگىرىشلەرنى قوللىنىش ئۈچۈن ئەپنى قايتا قوزغىتىڭ.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>سىستېما تىلىنى ئىشلىتىش</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>قايتا قوزغىتىش كېرەك</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>تىل ئۆزگىرىشلىرىنىڭ كۈچكە ئىگە بولۇشى ئۈچۈن قايتا قوزغىتىش كېرەك. ھازىر قايتا قوزغىتامسىز؟</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>سىنبەلگىلەرنى كۆرسىتىش</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>ھۆججەت سىنبەلگىلىرىنى كۆرسىتىش (ئېتىۋېتىلسە - ئىزدەش ۋاقتىنى قىسقارتىدۇ)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>زاپاسلاش / ئەسلىگە كەلتۈرۈش</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>بارلىق تەڭشەكلىرىڭىزنى، قائىدىلىرىڭىزنى، تېزلەتمىلىرىڭىزنى قاتارلىقلارنى ئېكسپورت ياكى ئىمپورت قىلىڭ.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>ئېكسپورت قىلىش</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>ئىمپورت قىلىش</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>

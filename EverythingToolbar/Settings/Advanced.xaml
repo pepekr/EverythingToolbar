@@ -38,6 +38,7 @@
                         </controls:SettingItem.SettingContent>
                     </controls:SettingItem>
                 </Border>
+
                 <Border Padding="16"
                         Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                         BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
@@ -81,6 +82,7 @@
                     <ui:InfoBar Name="NoUpdatesInfoBar"
                                 Message="{x:Static properties:Resources.SettingsLatestVersionMessage}"
                                 IsOpen="{Binding NoUpdatesBannerOpen, RelativeSource={RelativeSource AncestorType={x:Type Page}}, Mode=TwoWay}" />
+
                 </StackPanel>
             </Border>
             <ui:TextBlock FontTypography="BodyStrong"
@@ -101,13 +103,30 @@
                     </controls:SettingItem.SettingContent>
                 </controls:SettingItem>
             </Border>
+
+            <ui:TextBlock FontTypography="BodyStrong"
+                          Text="Startup"
+                          Margin="0, 25, 0, 7" />
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                <controls:SettingItem Title="Auto-start Everything" 
+                                      HelpText="Automatically launch Everything in the background if it is not running.">
+                    <controls:SettingItem.SettingContent>
+                        <ui:ToggleSwitch IsChecked="{Binding Source={x:Static local:ToolbarSettings.User}, Path=IsAutoStartEverything, Mode=TwoWay}" />
+                    </controls:SettingItem.SettingContent>
+                </controls:SettingItem>
+            </Border>
+
             <ui:TextBlock FontTypography="BodyStrong"
                           Text="{x:Static properties:Resources.SettingsOther}"
                           Margin="0, 25, 0, 7"/>
             <Border Padding="16"
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1,1,1,1"
+                    BorderThickness="1,1,1,0"
                     CornerRadius="8,8,0,0">
                 <controls:SettingItem Title="{x:Static properties:Resources.SettingsReplaceStartMenuSearch}"
                                       HelpText="{x:Static properties:Resources.SettingsReplaceStartMenuHelp}">
@@ -119,13 +138,31 @@
             <Border Padding="16"
                     Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1,0,1,1"
-                    CornerRadius="0, 0,8,8"
+                    BorderThickness="1,0,1,0"
+                    CornerRadius="0, 0,0,0"
                     Visibility="{Binding WindowsBuildVersion, Converter={c:WindowsVersionToVisibilityConverter}, ConverterParameter='>=22000'}">
                 <controls:SettingItem Title="{x:Static properties:Resources.SettingsForceWin10Styles}"
                                       HelpText="{x:Static properties:Resources.SettingsForceWin10StylesHelp}">
                     <controls:SettingItem.SettingContent>
                         <ui:ToggleSwitch IsChecked="{Binding Source={x:Static local:ToolbarSettings.User}, Path=ForceWin10Behavior, Mode=TwoWay}" />
+                    </controls:SettingItem.SettingContent>
+                </controls:SettingItem>
+            </Border>
+            <Border Padding="16"
+                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0, 0, 8, 8">
+                <controls:SettingItem Title="{x:Static properties:Resources.ConfigImportExport}"
+                          HelpText="{x:Static properties:Resources.ConfigImportExportHelp}">
+                    <controls:SettingItem.SettingContent>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="{x:Static properties:Resources.ConfigExportButton}"
+                                    Click="ExportSettings_Click"
+                                    Margin="0,0,8,0" />
+                            <Button Content="{x:Static properties:Resources.ConfigImportButton}"
+                                    Click="ImportSettings_Click" />
+                        </StackPanel>
                     </controls:SettingItem.SettingContent>
                 </controls:SettingItem>
             </Border>

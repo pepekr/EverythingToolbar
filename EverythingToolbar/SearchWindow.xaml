@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:b="clr-namespace:EverythingToolbar.Behaviors"
         xmlns:c="clr-namespace:EverythingToolbar.Converters"
@@ -103,6 +104,22 @@
                 </ContentControl>
             </Grid>
 
+            <Border x:Name="StartingEngineOverlay"
+                    Grid.Row="{DynamicResource SearchResultsViewGridRow}"
+                    Background="{DynamicResource ApplicationBackgroundBrush}"
+                    Visibility="Collapsed"
+                    Panel.ZIndex="100">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ui:ProgressRing IsIndeterminate="True" 
+                                     Width="48" Height="48" 
+                                     Margin="0,0,0,16" />
+                    <ui:TextBlock FontTypography="BodyStrong" 
+                                  Text="Starting the engine..." 
+                                  HorizontalAlignment="Center"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+            </Border>
+
             <controls:SearchBox x:Name="SearchBox"
                                 SearchTerm="{Binding Source={x:Static search:SearchState.Instance}, Path=SearchTerm, Mode=TwoWay}"
                                 TabIndex="999"
@@ -115,5 +132,4 @@
                                                      ConverterParameter=false}" />
         </Grid>
     </Border>
-
 </controls:AcrylicWindow>

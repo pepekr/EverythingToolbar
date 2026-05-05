@@ -315,6 +315,12 @@
   <data name="SettingsView" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="SettingsUILanguage" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="SettingsUILanguageHelp" xml:space="preserve">
+    <value>Kies die koppelvlaktaal. Herbegin die toepassing om veranderinge toe te pas.</value>
+  </data>
   <data name="SortByAttributes" xml:space="preserve">
     <value>Attributes</value>
   </data>
@@ -672,6 +678,34 @@
   <data name="FocusBehaviorRepeatWithSearch" xml:space="preserve">
     <value>Repeat with search</value>
   </data>
+  <data name="SettingsUseSystemLanguage" xml:space="preserve">
+    <value>Gebruik stelseltaal</value>
+  </data>
+  <data name="MessageBoxRestartTitle" xml:space="preserve">
+    <value>Herbegin vereis</value>
+  </data>
+  <data name="MessageBoxRestartMessage" xml:space="preserve">
+    <value>'n Herbegin is nodig sodat die taalveranderinge in werking kan tree. Wil jy nou herbegin?</value>
+  </data>
+  <data name="SettingsShowIcons" xml:space="preserve">
+    <value>Wys ikone</value>
+  </data>
+  <data name="SettingsShowIconsHelp" xml:space="preserve">
+    <value>Wys ikone van lêers (as dit afgeskakel is - verminder soektyd)</value>
+  </data>
+  <data name="ConfigImportExport" xml:space="preserve">
+    <value>Rugsteun / Herstel</value>
+  </data>
+  <data name="ConfigImportExportHelp" xml:space="preserve">
+    <value>Voer al jou instellings, reëls, kortpaaie ens. uit of in.</value>
+  </data>
+  <data name="ConfigExportButton" xml:space="preserve">
+    <value>Uitvoer</value>
+  </data>
+  <data name="ConfigImportButton" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+</root>
   <data name="ContextMenuDeletePermanently" xml:space="preserve">
     <value>Delete Permanently</value>
   </data>
