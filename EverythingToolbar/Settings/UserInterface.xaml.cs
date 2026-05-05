@@ -32,6 +32,16 @@ namespace EverythingToolbar.Settings
 
     public class UserInterfaceViewModel : INotifyPropertyChanged
     {
+        public List<KeyValuePair<string, string>> Themes { get; } =
+        [
+            new("System Default", ""),
+            new("Light", "Light"),
+            new("Dark", "Dark"),
+            new("Solarized", "Solarized"),
+            new("Dracula", "Dracula"),
+            new("OLED Dark", "OLED"),
+        ];
+
         public List<KeyValuePair<string, string>> ItemTemplates { get; } =
             [
                 new(Resources.ItemTemplateCompact, "Compact"),
@@ -39,7 +49,21 @@ namespace EverythingToolbar.Settings
                 new(Resources.ItemTemplateNormal, "Normal"),
                 new(Resources.ItemTemplateNormalDetailed, "NormalDetailed"),
             ];
+
         public List<KeyValuePair<string, string>> Languages { get; } = CultureHelper.GetAvailableLanguages();
+
+        public string SelectedTheme
+        {
+            get => ToolbarSettings.User.ThemeOverride;
+            set
+            {
+                if (ToolbarSettings.User.ThemeOverride != value)
+                {
+                    ToolbarSettings.User.ThemeOverride = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public string SelectedLanguage
         {
@@ -137,7 +161,6 @@ namespace EverythingToolbar.Settings
 
             if (IsLauncher && executablePath != null)
             {
-                // Start a new instance with a delay to allow the current one to exit and release the Mutex
                 System.Diagnostics.Process.Start(
                     new System.Diagnostics.ProcessStartInfo
                     {
@@ -149,7 +172,6 @@ namespace EverythingToolbar.Settings
                 );
             }
 
-            // Always restart explorer to provide consistent visual feedback/refresh
             foreach (var process in System.Diagnostics.Process.GetProcessesByName("explorer"))
             {
                 process.Kill();
