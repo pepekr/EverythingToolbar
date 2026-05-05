@@ -737,7 +737,7 @@ namespace EverythingToolbar.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Custom Actions.
         /// </summary>
-        public static string SettingsCustomActions {
+          public static string SettingsCustomActions {
             get {
                 return ResourceManager.GetString("SettingsCustomActions", resourceCulture);
             }
