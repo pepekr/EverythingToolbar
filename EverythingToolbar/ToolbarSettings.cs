@@ -1,10 +1,11 @@
-﻿using Config.Net;
-using EverythingToolbar.Data;
-using EverythingToolbar.Helpers;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Config.Net;
+using EverythingToolbar.Data;
+using EverythingToolbar.Helpers;
+
 namespace EverythingToolbar
 {
     public interface IToolbarSettings
@@ -26,7 +27,7 @@ namespace EverythingToolbar
         bool IsSearchAsYouType { get; set; }
 
         [Option(DefaultValue = true)]
-        public bool FocusSearchOnTyping { get; set; }
+        bool FocusSearchOnTyping { get; set; }
 
         [Option(DefaultValue = "")]
         string FilterOrder { get; set; }
@@ -140,6 +141,9 @@ namespace EverythingToolbar
         [Option(DefaultValue = false)]
         bool IsAutoStartEverything { get; set; }
 
+        [Option(DefaultValue = false)]
+        bool IsSelectionModeEnabled { get; set; }
+
         [Option(DefaultValue = FocusBehavior.Repeat)]
         FocusBehavior ListFocusBehavior { get; set; }
 
@@ -205,19 +209,22 @@ namespace EverythingToolbar
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        // Shortcut defaults
+        private static readonly ShortcutBinding DefaultOpen = new(Key.Enter);
+        private static readonly ShortcutBinding DefaultOpenPath = new(Key.Enter, ModifierKeys.Control);
+        private static readonly ShortcutBinding DefaultRunAsAdmin = new(Key.Enter, ModifierKeys.Control | ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultOpenInEverything = new(Key.Enter, ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultProperties = new(Key.Enter, ModifierKeys.Alt);
+        private static readonly ShortcutBinding DefaultCopyPath = new(Key.C, ModifierKeys.Control | ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultPreview = new(Key.Space);
+        private static readonly ShortcutBinding DefaultCycleNext = new(Key.Tab);
+        private static readonly ShortcutBinding DefaultCyclePrev = new(Key.Tab, ModifierKeys.Shift);
+        private static readonly ShortcutBinding DefaultNavigateUp = new(Key.Up);
+        private static readonly ShortcutBinding DefaultNavigateDown = new(Key.Down);
         private static readonly ShortcutBinding DefaultFocusSearch = new(Key.F, ModifierKeys.Control);
-        public bool IsAutoStartEverything
-        {
-            get => settings.IsAutoStartEverything;
-            set
-            {
-                if (settings.IsAutoStartEverything != value)
-                {
-                    settings.IsAutoStartEverything = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        private static readonly FilterRangeBinding DefaultFilterRange = new(Key.D0, ModifierKeys.Control, 10);
+
         public bool IsMatchCase
         {
             get => settings.IsMatchCase;
@@ -229,11 +236,6 @@ namespace EverythingToolbar
                     OnPropertyChanged();
                 }
             }
-        }
-        public ShortcutBinding LocalShortcutFocusSearch
-        {
-            get => ShortcutBinding.FromString(settings.LocalShortcutFocusSearch, DefaultFocusSearch);
-            set { settings.LocalShortcutFocusSearch = value.ToString(); OnPropertyChanged(); }
         }
 
         public bool IsRegExEnabled
@@ -300,6 +302,7 @@ namespace EverythingToolbar
                 }
             }
         }
+
         public bool FocusSearchOnTyping
         {
             get => settings.FocusSearchOnTyping;
@@ -312,6 +315,7 @@ namespace EverythingToolbar
                 }
             }
         }
+
         public int PopupHeight
         {
             get => settings.PopupHeight;
@@ -802,18 +806,32 @@ namespace EverythingToolbar
                 }
             }
         }
-        private static readonly ShortcutBinding DefaultOpen = new(Key.Enter);
-        private static readonly ShortcutBinding DefaultOpenPath = new(Key.Enter, ModifierKeys.Control);
-        private static readonly ShortcutBinding DefaultRunAsAdmin = new(Key.Enter, ModifierKeys.Control | ModifierKeys.Shift);
-        private static readonly ShortcutBinding DefaultOpenInEverything = new(Key.Enter, ModifierKeys.Shift);
-        private static readonly ShortcutBinding DefaultProperties = new(Key.Enter, ModifierKeys.Alt);
-        private static readonly ShortcutBinding DefaultCopyPath = new(Key.C, ModifierKeys.Control | ModifierKeys.Shift);
-        private static readonly ShortcutBinding DefaultPreview = new(Key.Space);
-        private static readonly ShortcutBinding DefaultCycleNext = new(Key.Tab);
-        private static readonly ShortcutBinding DefaultCyclePrev = new(Key.Tab, ModifierKeys.Shift);
-        private static readonly ShortcutBinding DefaultNavigateUp = new(Key.Up);
-        private static readonly ShortcutBinding DefaultNavigateDown = new(Key.Down);
-        private static readonly FilterRangeBinding DefaultFilterRange = new(Key.D0, ModifierKeys.Control, 10);
+
+        public bool IsAutoStartEverything
+        {
+            get => settings.IsAutoStartEverything;
+            set
+            {
+                if (settings.IsAutoStartEverything != value)
+                {
+                    settings.IsAutoStartEverything = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsSelectionModeEnabled
+        {
+            get => settings.IsSelectionModeEnabled;
+            set
+            {
+                if (settings.IsSelectionModeEnabled != value)
+                {
+                    settings.IsSelectionModeEnabled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public ShortcutBinding LocalShortcutOpen
         {
@@ -879,6 +897,12 @@ namespace EverythingToolbar
         {
             get => ShortcutBinding.FromString(settings.LocalShortcutNavigateDown, DefaultNavigateDown);
             set { settings.LocalShortcutNavigateDown = value.ToString(); OnPropertyChanged(); }
+        }
+
+        public ShortcutBinding LocalShortcutFocusSearch
+        {
+            get => ShortcutBinding.FromString(settings.LocalShortcutFocusSearch, DefaultFocusSearch);
+            set { settings.LocalShortcutFocusSearch = value.ToString(); OnPropertyChanged(); }
         }
 
         public FilterRangeBinding LocalShortcutFilterRange
